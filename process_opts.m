@@ -106,9 +106,9 @@ opts.dataDir = fullfile(opts.localDir, 'data');
 opts.imdbPath = fullfile(opts.dataDir, [opts.dataset '_imdb']);
 
 % -----------------------------------------------------------------------------
-% expDir: format like ./cachedir/deepMI-cifar32-fc
+% expDir: format like ./cachedir/results/MI-cifar32-vggf-sp1
 % -----------------------------------------------------------------------------
-opts.expDir = fullfile(opts.localDir, opts.methodID);
+opts.expDir = fullfile(opts.localDir, 'results', opts.methodID);
 if exist(opts.expDir, 'dir') == 0, 
     mkdir(opts.expDir);
     unix(['chmod g+rw ' opts.expDir]); 
@@ -117,11 +117,11 @@ end
 % -----------------------------------------------------------------------------
 % identifier string for the current experiment
 % NOTE: opts.identifier is already initialized with method-specific params
-% Folder must be a GIT repo
 % -----------------------------------------------------------------------------
 idr = opts.identifier;
 if isempty(opts.prefix)
     % prefix: timestamp
+	% Folder must be a GIT repo with a commit history
     [~, T] = unix(['git log -1 --format=%ci|cut -d " " -f1,2|cut -d "-" -f2,3' ...
         '|tr " " "."|tr -d ":-"']);
     opts.prefix = strrep(T, char(10), '');
@@ -130,8 +130,8 @@ opts.identifier = [opts.prefix '-' idr];  % remove \n
 
 % -----------------------------------------------------------------------------
 % expand expDir
-% expDir (orig): ./cachedir/deepMI-cifar32-fc
-% identifier: abcdef-maxdif0.1-......
+% expDir (orig): ./cachedir/results/MI-cifar32-vggf-sp1
+% identifier: abcdef-Bin16Sig30,0-batch256-......
 % -----------------------------------------------------------------------------
 opts.expDir = fullfile(opts.expDir, opts.identifier);
 if ~exist(opts.expDir, 'dir'),

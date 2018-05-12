@@ -39,7 +39,7 @@ if opts.normalize
 end
 
 DB.images.data = permute(single(data), [3 4 2 1]);
-DB.images.labels = single(labels');
+DB.images.labels = single(labels);
 DB.images.set = uint8(sets');
 DB.meta.sets = {'train', 'val', 'test'} ;
 end

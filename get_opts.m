@@ -104,7 +104,6 @@ ip.addParameter('epoch'    , 50);
 ip.addParameter('gpus'     , []);
 ip.addParameter('continue' , true);
 ip.addParameter('debug'    , false);
-ip.addParameter('plot'     , false);
 ip.addParameter('split'    , 2);
 
 % -----------------------------------------------------------------------------

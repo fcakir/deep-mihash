@@ -32,13 +32,8 @@ Htrain = cnn_encode_sup(net, batchFunc, imdb, train_id, opts, noLossLayer);
 % evaluate
 myLogInfo('Evaluating...');
 for m = metrics
-    % available metics: tieAP, tieNDCG, AP, AP@N, NDCG, NDCG@N
-    if ~isempty(strfind(m{1}, 'AP'))
-        Aff = affinity_binary(Ytest, Ytrain, [], [], opts);
-    else
-        Aff = affinity_multlv(Ytest, Ytrain, [], [], opts);
-    end
-	fprintf('Train to Test Ratio=%g', sum(Aff(:)) ./numel(Aff));
+    % available metics: AP, AP@N
+    Aff = affinity_binary(Ytest, Ytrain, [], [], opts);
     if ~isempty(strfind(m{1}, '@'))
         s = strsplit(m{1}, '@');
         assert(numel(s) == 2);
@@ -49,8 +44,7 @@ for m = metrics
         evalFn = str2func(['evaluate_' m{1}]);
     end
 	
-    evalFn(Htest, Htrain, Aff, opts, cutoff, bit_weights);
-    %evalFn(Htest, Htrainb, Aff, opts, cutoff, bit_weights);
+    evalFn(Htest, Htrain, Aff, opts, cutoff);
 end
 end
 

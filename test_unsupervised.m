@@ -44,7 +44,6 @@ toc;
 fprintf('Getting (Htrain, Aff)...'); tic;
 Htrain = zeros(opts.nbits, Ntrain, 'single');
 Aff_bin = zeros(Ntest, Ntrain, 'single');
-Aff_mlv = zeros(Ntest, Ntrain, 'single');
 for t = 1:batch_size:Ntrain
     ed = min(t+batch_size-1, Ntrain);
     [rex, data] = cnn_encode_unsup(net, batchFunc, imdb, train_id(t:ed), ...
@@ -52,7 +51,6 @@ for t = 1:batch_size:Ntrain
     data = squeeze(data)';
     Htrain(:, t:ed)  = single(rex > 0);
     Aff_bin(:, t:ed) = affinity_binary([], [], Xtest, data, opts);
-    Aff_mlv(:, t:ed) = affinity_multlv([], [], Xtest, data, opts);
 end
 toc;
 whos Htest Htrain
@@ -60,11 +58,7 @@ whos Htest Htrain
 % evaluate
 myLogInfo('Evaluating...');
 for m = metrics
-    if ~isempty(strfind(m{1}, 'AP'))
-        Aff = Aff_bin;
-    else
-        Aff = Aff_mlv;
-    end
+    Aff = Aff_bin;
     if ~isempty(strfind(m{1}, '@'))
         s = strsplit(m{1}, '@');
         assert(numel(s) == 2);

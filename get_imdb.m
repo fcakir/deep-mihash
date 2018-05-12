@@ -44,9 +44,9 @@ imdb = [];
 
 % -----------------------------------------------------------------------------
 % imdbFile
-% checks the opts.dataDir location for imdb mat file. 
+% checks the {opts.dataDir}/IMDB-FILES/ location for imdb mat file. 
 % -----------------------------------------------------------------------------
-imdbFile = fullfile(opts.dataDir, ['imdb_' imdbName]);
+imdbFile = fullfile(opts.dataDir, 'IMDB-FILES', ['imdb_' imdbName]);
 imdbFile = [imdbFile, '.mat'];
 myLogInfo(imdbFile);
 
@@ -60,7 +60,7 @@ if exist(imdbFile, 'file')
 else
     imdb = imdbFunc(opts, net) ;
     save(imdbFile, '-struct', 'imdb', '-v7.3') ;
-    if ~opts.windows, unix(['chmod g+rw ' imdbFile]); end
+    unix(['chmod g+rw ' imdbFile]); 
     myLogInfo('saved in %.2fs', toc(t0));
 end
 imdb.name = imdbName;

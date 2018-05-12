@@ -77,7 +77,7 @@ file_set = uint8([ones(1, 5), 3]);
 if any(cellfun(@(fn) ~exist(fn, 'file'), files))
     url = 'http://www.cs.toronto.edu/~kriz/cifar-10-matlab.tar.gz' ;
     fprintf('downloading %s\n', url) ;
-    untar(url, opts.dataDir) ;
+    untar(url, fullfile(opts.dataDir,'CIFAR-10')) ;
 end
 
 data   = cell(1, numel(files));

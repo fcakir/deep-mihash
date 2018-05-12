@@ -5,5 +5,6 @@ while exist(diary_path(ind), 'file')
     ind = ind + 1;
 end
 diary(diary_path(ind));
+diary_path = diary_path(ind);
 diary('on');
 end
