@@ -28,7 +28,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 % 				  used. 
 
 % 	normalize 	- (bool) Determines whether to apply normalization to the input features.
-% 				  Only applicable when input is GIST, FC7 or other related eatures.
+% 				  Only applicable when input is GIST, FC7 or other similar feature descrpiptors.
 % 	solver 		- (string) The SGD solver. Default option is 'sgd'. 
 %	batchSize 	- (int) Batch size.
 % 	lr 			- (float) Learning rate
@@ -45,7 +45,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 %	epoch 		- (int) Number of epochs. 
 % 	gpus 		- (int vector) specificies the gpus id. If set to [], then cpu is
 %				  used. The appropiated MatConvNet library must be installed. 
-% 	continue 	- (bool) Whether to continue from old epoch. 
+% 	continue 	- (bool) Whether to continue from last saved epoch. 
 % 	debug 		- (bool) For debugging purposes.  
 % 	split 		- (int) in {1, 2}. Applicable only for CIFAR and NUSWIDE. Specifies
 % 				  the training set size. See +imdb/split_* functions and the paper
@@ -75,7 +75,7 @@ ip.addRequired('modelType' , @isstr);
 % -----------------------------------------------------------------------------
 % model params
 % -----------------------------------------------------------------------------
-ip.addParameter('sigmf', [40 0]);  % 2nd para: =0 use fixed
+ip.addParameter('sigmf', [1 0]);  % 2nd para: =0 use fixed
 ip.addParameter('nbins', nbits/2);  % use <nbits for less sparse histograms
 ip.addParameter('obj'  , 'mi');
 

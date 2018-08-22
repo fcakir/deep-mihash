@@ -11,12 +11,12 @@ function DB = cifar_fc7(opts, net)
 %   DB (struct)
 %       .images (struct)
 % 				.data 	(1x1xmx60000 tensor) m corresponds to the feature dim.
-% 						Typically m=4096 if corresponds to fc7 layer features of 
-% 					    a VGG network. 
+% 						Typically m=4096 if features correspond to the fc7 layer
+% 					    output of a VGG network. 
 % 						image.
 % 				.labels (1x60000 vector) Label vector
 % 				.set    (1x60000 vector) Each element is from {1,2,3} indicating 
-% 						a training, validation or test image. 
+% 						a training, validation and test image, respectively. 
 %       .meta (struct)
 % 				.sets   (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
 %

@@ -1,8 +1,8 @@
 function S = cifar_split(Y, opts)
 % Sets the training set size. Two different partitionings are used: split=1 
-% where 500 and 100 instances are samples from each class for training and test
-% set. Split=1 samples 1000 instances per class for test set. The remaining images
-% are used for the training set. All non-test images are used as the retrieval set.
+% where 500 and 100 instances are sampled from each class for the training and test
+% sets. Split=1 samples 1000 instances per class for the test set. The remaining images
+% are used as the training set. All non-test images are used as the retrieval set.
 % See paper for more details about the experimental setup. 
 %
 % INPUTS
@@ -11,7 +11,7 @@ function S = cifar_split(Y, opts)
 %
 % OUTPUTS
 %    set     - (60000x1 vector) Each element is from {1,2,3} indicating 
-% 						a training, validation or test instace.
+% 						a training, validation and test instance, respectively.
 %
 if opts.split == 1
     trainPerCls = 500; testPerCls = 100;

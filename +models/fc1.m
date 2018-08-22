@@ -13,6 +13,9 @@ if normalize
 else
     lr = [1 1];
 end
+
+% LabelMe by default uses 512 dimensional GIST features, other datasets uses 
+% the penultimate layer of a VGG architecture which has 4096 dimensions. 
 if strcmp(opts.dataset, 'labelme')
     D = 512;
 else

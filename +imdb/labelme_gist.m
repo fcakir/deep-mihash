@@ -17,11 +17,11 @@ function imdb = labelme_gist(opts, net)
 %               .thr_dist (vector) distance threshold percentiles. Used to define
 % 						  neighborhood. For example, for any two instances, if their 
 % 						  l2-norm is smaller than this value, then they're considered neighbors
-% 						  with varying degree/level. Note that in the paper we only use 
-% 						  5% percentile yielding a single degree/level (binary) neighborhood.
-% 					      See the definition below. 
+% 						  with varying degree/level. Note that in the mihash paper
+% 						  5% percentile and below level defines the neighborhood.
+% 					      See the code below. 
 % 				.set      (22019x1 vector) Each element is from {1,2,3} indicating 
-% 						  a training, validation or test image. 
+% 						  a training, validation or test image, respectively. 
 %       .meta (struct)
 % 				.sets   (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
 basedir = fullfile(opts.dataDir, 'LABELME');

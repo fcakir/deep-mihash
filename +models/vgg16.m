@@ -2,7 +2,7 @@ function [net, imageSize, normalize] = vgg(opts)
 % Initializes a pre-trained VGG-16 net for transfer learningg. 
 imageSize = 224;
 normalize = false;
-lr = [10 20];
+lr = [1 1];
 
 % finetune VGG-16
 net = load(fullfile(opts.localDir, 'models', 'imagenet-vgg-verydeep-16.mat'));

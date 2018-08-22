@@ -30,6 +30,7 @@ function paths = demo_AP(dataset, nbits, modelType, varargin)
 % -----------------------------------------------------------------------------
 opts = get_opts(dataset, nbits, modelType, varargin{:});
 finishup = onCleanup(@cleanup);
+rng(opts.randseed, 'twister'); % set global random stream
 
 % -----------------------------------------------------------------------------
 % post-parsing
@@ -89,7 +90,7 @@ saveps = set_saveps(opts);
     'epochCallback', @epoch_callback) ;
 
 % -----------------------------------------------------------------------------
-% return value
+% return 
 % -----------------------------------------------------------------------------
 paths.diary 		= opts.diary_path;
 paths.expfolder 	= opts.expDir;
@@ -110,7 +111,7 @@ myLogInfo('[%s]', opts.identifier);
 % test?
 if ~isfield(opts, 'testFunc'), opts.testFunc = @test_supervised; end
 if ~isfield(opts, 'testInterval'), opts.testInterval = 10; end
-if ~isfield(opts, 'metrics'), opts.metics = {'AP'}; end
+if ~isfield(opts, 'metrics'), opts.metrics = {'AP'}; end
 if ~mod(epoch, opts.testInterval) ...
         || (isfield(opts, 'ep1') & opts.ep1 & epoch==1) || (epoch == opts.epoch)
     opts.testFunc(net, imdb, batchFunc, opts, opts.metrics);

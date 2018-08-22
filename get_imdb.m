@@ -2,7 +2,8 @@ function [imdb, opts, net] = get_imdb(imdb, opts, net)
 
 % -----------------------------------------------------------------------------
 % feature type:
-% For the fully connected layer model (fc) the input is features. 
+% For the fully connected layer model (fc) the input is a feature descriptor 
+% such as GIST. 
 % For LabelMe the GIST descriptor is used. The fc7 layer features are used for
 % other datasets.
 % -----------------------------------------------------------------------------

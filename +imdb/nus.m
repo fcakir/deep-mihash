@@ -24,13 +24,14 @@ function DB = nus(opts, net)
 % 	  | 	| 	  |-- 00001_534152430.jpg
 % 	  | 	| 	  |--   ... 
 % 		...
-% The {sdir} directory are under opts.dataDir. opts.dataDir is generally
+% The {sdir} directory is under opts.dataDir. opts.dataDir is generally
 % set to {opts.localDir}/data . Note that opts.localDir generally is './cachedir'.
 % See process_opts.m. 
 % The image paths will saved in the DB struct below. Note that this DB struct 
 % will be saved on disk in the opts.dataDir directory. See get_imdb.m .  
+%
 % Keeps images associated with the 21 most frequent concepts. This corresponds to
-% a total of 195834 images. 
+% a total of number of 195834 images. 
 %
 % INPUTS
 %   opts 	 - (struct) options, see get_opt.m and process_opts.m . 
@@ -40,11 +41,11 @@ function DB = nus(opts, net)
 % OUTPUTS
 %   DB (struct)
 %       .images (struct)
-% 				.data 	(nx1 cell array) Each rows is an image path.
+% 				.data 	(nx1 cell array) Each row is an image path.
 % 				.labels (lxn matrix) Each column is the concept membership 
 % 						indicator for an image. 
 % 				.set    (1xn vector) Each element is from {1,2,3} indicating 
-% 						a training, validation or test image. 
+% 						a training, validation and test image, respectively. 
 %       .meta (struct)
 % 				.sets   (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
 % 				

@@ -11,14 +11,14 @@ function DB = nus_fc7(opts, net)
 %   DB (struct)
 %       .images (struct)
 % 				.data 	(1x1xmxn tensor) m corresponds to the feature dim. 
-% 						n corresponds to images.
+% 						n corresponds to number of images.
 % 						Typically m=4096 corresponding to fc7 layer features of 
-% 					    a VGG network. If most frequent 21 concepts had been 
+% 					    a VGG network. If most frequent 21 concepts has been 
 % 						considered then	n=195834. 
 % 				.labels (lxn matrix) Each column is the concept membership 
 % 						indicator for an image. 
 % 				.set    (1xn vector) Each element is from {1,2,3} indicating 
-% 						a training, validation or test image. 
+% 						a training, validation and test image, respectively. 
 %       .meta (struct)
 % 				.sets   (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
 %
@@ -46,13 +46,11 @@ end
 % ----------------------------------------------------------
 function [X, Y] = load_fc7_nus(opts, use21FrequentConcepts)
 if nargin < 1, use21FrequentConcepts = true; end
-basedir = fullfile(opts.dataDir, 'NUSWIDE_metadata');
+basedir = fullfile(opts.dataDir, 'NUSWIDE');
 
 load(fullfile(basedir, 'nuswide-vggf.mat'));  % vggf, labels
 X = single(vggf); clear vggf
 Y = labels;
-%X = double(FVs);  clear FVs
-%Y = load([basedir '/nuswide/AllLabels81.txt']);
 
 % use 21 most frequent labels only
 if use21FrequentConcepts

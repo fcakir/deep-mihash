@@ -5,7 +5,7 @@ name = name(1:end-1);
 myLogInfo('Hostname = %s', name);
 
 try
-    if ismember(name, {'ivcgpu3.bu.edu' 'hopper'})
+    if ismember(name, {'ivcgpu3.bu.edu' 'hopper', 'ivcgpu4.bu.edu'})
         myLogInfo('Using MatConvNet-GPU');
         run ./matconvnet/matlab/vl_setupnn
     elseif ismember(name, {'ivcgpu1.bu.edu' 'ivcgpu2.bu.edu'})

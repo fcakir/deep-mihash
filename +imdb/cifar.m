@@ -12,11 +12,11 @@ function DB = cifar(opts, net)
 % OUTPUTS
 %   DB (struct)
 %       .images (struct)
-% 				.data 	(32x32x3x60000 tensor) The 4th dim corresponds to an
-% 						image.
+% 				.data 	(32x32x3x60000 tensor) The 4th dim corresponds to the
+% 						image index.
 % 				.labels (1x60000 vector) Label vector
 % 				.set    (1x60000 vector) Each element is from {1,2,3} indicating 
-% 						a training, validation or test image. 
+% 						a training, validation and test image, respectively. 
 %       .meta (struct)
 % 				.sets   (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
 %
