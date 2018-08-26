@@ -16,8 +16,13 @@ X = squeeze(bot.x);  % nbitsxN
 opts = layer.opts;
 onGPU = numel(opts.gpus) > 0;
 
-Delta = nbits / opts.nbins;
-Cntrs = 0: Delta: nbits;
+global Deltax
+global Cntrsx
+Delta = Deltax;
+Cntrs = Cntrsx;
+
+%Delta = nbits / opts.nbins;
+%Cntrs = 0: Delta: nbits;
 L = length(Cntrs);
 
 pD   = top.aux.pD;
@@ -29,6 +34,8 @@ phi  = top.aux.phi;
 Xp   = top.aux.Xp;
 Xn   = top.aux.Xn;
 hdist = top.aux.distance;
+sum_upDCp = top.aux.pDCp;
+sum_upDCn = top.aux.pDCn;
 
 minus1s = -ones(size(pD));
 if onGPU, minus1s = gpuArray(minus1s); end
@@ -39,22 +46,32 @@ if onGPU, minus1s = gpuArray(minus1s); end
 d_H_pD = deriv_ent(pD, minus1s);  % NxL
 
 % -----------------------------------------------------------------------------
-% 2. H/P(D|+), H/P(D|-)
+% 2. H/P(D|+), H/P(D|-) NXL
 % -----------------------------------------------------------------------------
 d_H_pDCp = diag(prCp) * d_H_pD;
 d_H_pDCn = diag(prCn) * d_H_pD;
 
 % -----------------------------------------------------------------------------
-% 3. Hcond/P(D|+), Hcond/P(D|-)
-% -----------------------------------------------------------------------------
+% 3. Hcond/P(D|+), Hcond/P(D|-) NXL
+% ----------------------------------------------------------------------------- 
 d_Hcond_pDCp = diag(prCp) * deriv_ent(pDCp, minus1s);
 d_Hcond_pDCn = diag(prCn) * deriv_ent(pDCn, minus1s);
 
 % -----------------------------------------------------------------------------
-% 4. -MI/P(D|+), -MI/P(D|-): LxN
+% 4. -MI/P(D|+), -MI/P(D|-): NXL
 % -----------------------------------------------------------------------------
 d_L_pDCp = -(d_H_pDCp - d_Hcond_pDCp);
 d_L_pDCn = -(d_H_pDCn - d_Hcond_pDCn);
+
+% -----------------------------------------------------------------------------
+% 4.1 -MI/uP(D|+), -MI/uP(D|-): NXL
+% -----------------------------------------------------------------------------
+for i = 1:N
+	d_L_pDCp(i, :) = ((repmat(-upDCp(i,:), L, 1)./(sum_pDCp(i)^2) + diag(sum_pDCp(i))) ...
+   						* d_L_pDCp(i, :)')';
+	d_L_pDCn(i, :) = ((repmat(-upDCn(i,:), L, 1)./(sum_pDCn(i)^2) + diag(sum_pDCn(i))) ...
+   						* d_L_pDCn(i, :)')';
+end
 
 % -----------------------------------------------------------------------------
 % 5. precompute dTPulse tensor
@@ -97,6 +114,25 @@ d_L_x   = d_L_phi .* d_phi_x;
 bot.dzdx = zeros(size(bot.x), 'single');
 if onGPU, bot.dzdx = gpuArray(bot.dzdx); end
 bot.dzdx(1, 1, :, :) = single(d_L_x);
+
+
+% -----------------------------------------------------------------------------
+% App. Update histogram parameters 
+% -----------------------------------------------------------------------------
+
+% Update Delta
+d_L_Delta = 0;
+dlr = 1/N;
+if false
+	for l = 1:L
+		dpulse = triPulseDeriv(hdist, Cntrs(l), Delta);
+		ddp = sum(dpulse .* Xp, 2); % NX1
+		ddn = sum(dpulse .* Xn, 2);
+		d_L_Delta = d_L_Delta + d_L_pDCp(:, l)'*ddp + d_L_pDCn(:, l)'*ddn;
+	end	
+	Deltax = Deltax - dlr*d_L_Delta;
+end
+
 end
 
 % -----------------------------------------------------------------------------

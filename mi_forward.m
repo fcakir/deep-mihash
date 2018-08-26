@@ -48,8 +48,21 @@ hdist = (nbits - phi' * phi)/2;
 % -----------------------------------------------------------------------------
 % 3. estimate discrete distributions
 % -----------------------------------------------------------------------------
-Delta = nbits / opts.nbins;
-Cntrs = 0: Delta: nbits;
+%Delta = nbits / opts.nbins;
+%Cntrs = 0: Delta: nbits;
+global Deltax
+global Cntrsx
+
+if isempty(Deltax)
+	Deltax = nbits/opts.nbins;
+end
+if isempty(Cntrsx)
+	Cntrsx = 0:Deltax:nbits;
+end
+
+Delta = Deltax;
+Cntrs = Cntrsx;
+
 L     = length(Cntrs);
 prCp  = sum(Xp, 2) ./ (N-1);
 prCn  = 1 - prCp;
@@ -66,6 +79,10 @@ for l = 1:L
     pDCp(:, l) = sum(pulse .* Xp, 2);
     pDCn(:, l) = sum(pulse .* Xn, 2);
 end
+
+% unnormalized distance distributions
+upDCp = pDCp;
+upDCn = pDCn;
 
 % pD
 pD = (pDCp + pDCn) ./ (N-1);
@@ -98,6 +115,12 @@ top.aux.prCn = prCn;
 top.aux.pDCp = pDCp;
 top.aux.pDCn = pDCn;
 top.aux.pD   = pD;
+top.aux.upDCp = upDCp;
+top.aux.upDCn = upDCn;
+top.aux.sum_upDCp = sum_pDCp;
+top.aux.sum_upDCn = sum_pDCn;
+
+
 end
 
 
