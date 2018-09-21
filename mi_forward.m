@@ -74,10 +74,17 @@ if onGPU
 end
 
 % new version, better when L<N
+cXp = sum(Xp, 2);
+cXn = sum(Xn, 2);
+nz_p = cXp > 0;
+nz_n = cXn > 0;
+
 for l = 1:L
     pulse = triPulse(hdist, Cntrs(l), Delta);  % NxN
     pDCp(:, l) = sum(pulse .* Xp, 2);
     pDCn(:, l) = sum(pulse .* Xn, 2);
+	pDCp(nz_p,l) = pDCp(nz_p, l) ./ cXp(nz_p);
+	pDCn(nz_n,l) = pDCn(nz_n, l) ./ cXn(nz_n);
 end
 
 % unnormalized distance distributions

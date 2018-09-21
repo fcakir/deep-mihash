@@ -49,6 +49,14 @@ assert(opts.sigmf(1) >= 1);
 assert(opts.sigmf(2) == 0);
 opts.sigmf_p = opts.sigmf(1);
 
+
+% -----------------------------------------------------------------------------
+% Delta update parameters
+% -----------------------------------------------------------------------------
+if opts.mind == 0
+	opts.mind = opts.nbits/opts.nbins;
+end
+
 % -----------------------------------------------------------------------------
 % identifier
 % -----------------------------------------------------------------------------
@@ -60,9 +68,9 @@ if ismember(opts.dataset, {'cifar' 'nus'})
 end
 
 % 0. shared
-idr = sprintf('Bin%dSig%g,%g-batch%d-%sLR%gD%g', ...
+idr = sprintf('Bin%dSig%g,%g-batch%d-%sLR%gD%g-dLR%g-mind%g-lLR%g-', ...
 	opts.nbins, opts.sigmf(1), opts.sigmf(2), opts.batchSize, opts.solver, ...
-	opts.lr, opts.lrdecay);
+	opts.lr, opts.lrdecay, opts.dlr, opts.mind, opts.llr);
 % 1. lrstep
 if opts.lrdecay > 0
     idr = sprintf('%sE%d', idr, opts.lrstep);

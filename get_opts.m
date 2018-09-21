@@ -96,7 +96,9 @@ ip.addParameter('lrmult'    , 0.01);
 ip.addParameter('wdecay'    , 5e-4);
 ip.addParameter('bpdepth'   , inf);
 ip.addParameter('dropout'   , 0);
-
+ip.addParameter('dlr' 		, 1);
+ip.addParameter('llr' 		, 1);
+ip.addParameter('mind' 		, 0);
 % -----------------------------------------------------------------------------
 % train
 % -----------------------------------------------------------------------------

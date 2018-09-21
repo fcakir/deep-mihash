@@ -34,8 +34,10 @@ phi  = top.aux.phi;
 Xp   = top.aux.Xp;
 Xn   = top.aux.Xn;
 hdist = top.aux.distance;
-sum_upDCp = top.aux.pDCp;
-sum_upDCn = top.aux.pDCn;
+upDCp = top.aux.upDCp;
+upDCn = top.aux.upDCn;
+sum_upDCp = top.aux.sum_upDCp;
+sum_upDCn = top.aux.sum_upDCn;
 
 minus1s = -ones(size(pD));
 if onGPU, minus1s = gpuArray(minus1s); end
@@ -63,16 +65,21 @@ d_Hcond_pDCn = diag(prCn) * deriv_ent(pDCn, minus1s);
 d_L_pDCp = -(d_H_pDCp - d_Hcond_pDCp);
 d_L_pDCn = -(d_H_pDCn - d_Hcond_pDCn);
 
+udlp = d_L_pDCp;
+udln = d_L_pDCn;
 % -----------------------------------------------------------------------------
 % 4.1 -MI/uP(D|+), -MI/uP(D|-): NXL
 % -----------------------------------------------------------------------------
+if true
 for i = 1:N
-	d_L_pDCp(i, :) = ((repmat(-upDCp(i,:), L, 1)./(sum_pDCp(i)^2) + diag(sum_pDCp(i))) ...
+	d_L_pDCp(i, :) = ((repmat(-upDCp(i,:), L, 1)./(sum_upDCp(i)^2) + eye(L)*sum_upDCp(i)) ...
    						* d_L_pDCp(i, :)')';
-	d_L_pDCn(i, :) = ((repmat(-upDCn(i,:), L, 1)./(sum_pDCn(i)^2) + diag(sum_pDCn(i))) ...
+	d_L_pDCn(i, :) = ((repmat(-upDCn(i,:), L, 1)./(sum_upDCn(i)^2) + eye(L)*sum_upDCn(i)) ...
    						* d_L_pDCn(i, :)')';
 end
-
+end
+d_L_pDCp(isnan(d_L_pDCp)) = 0;
+d_L_pDCn(isnan(d_L_pDCn)) = 0;
 % -----------------------------------------------------------------------------
 % 5. precompute dTPulse tensor
 % -----------------------------------------------------------------------------
@@ -122,17 +129,18 @@ bot.dzdx(1, 1, :, :) = single(d_L_x);
 
 % Update Delta
 d_L_Delta = 0;
-dlr = 1/N;
-if false
+dlr = 1e-4/N;
+if true
 	for l = 1:L
 		dpulse = triPulseDeriv(hdist, Cntrs(l), Delta);
 		ddp = sum(dpulse .* Xp, 2); % NX1
 		ddn = sum(dpulse .* Xn, 2);
 		d_L_Delta = d_L_Delta + d_L_pDCp(:, l)'*ddp + d_L_pDCn(:, l)'*ddn;
 	end	
-	Deltax = Deltax - dlr*d_L_Delta;
+	Deltax = max(1, Deltax - dlr*d_L_Delta);
 end
-
+myLogInfo('%.2f', Deltax-dlr*d_L_Delta);
+myLogInfo('%.2f', Deltax);
 end
 
 % -----------------------------------------------------------------------------
