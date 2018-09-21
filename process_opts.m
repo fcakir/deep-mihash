@@ -35,6 +35,9 @@ if ismember(opts.modelType, {'alexnet_ft', 'vgg16', 'vggf', 'vggf_ft'})
     assert(numel(opts.gpus) > 0, 'set ''gpus'' for non-single layer architectures');
 end
 
+if opts.llr == 0
+	opts.llr = opts.dlr;
+end
 % -----------------------------------------------------------------------------
 % assertions
 % -----------------------------------------------------------------------------
