@@ -136,7 +136,7 @@ if true
 		d_L_Delta = gather((d_L_pDp(:, l))'*ddp + (d_L_pDn(:, l))'*ddn);
 		d_L_Delta(isnan(d_L_Delta)|isinf(d_L_Delta)) = 0;
 		Delta(l) = gather(max(opts.mind, Delta(l)+dlr*d_L_Delta));
-		if randn > 0.99
+		if rand > 0.999
 			myLogInfo('%d, D: N:%.4f P:%.4f uP:%.4f', l, Deltax(l), Delta(l), d_L_Delta);
 		end
 	end	
@@ -158,7 +158,7 @@ if true
 		% update
 		Cntrs(l) = gather(min(max(0, Cntrs(l) + llr*d_L_l), nbits));
 
-		if randn > 0.99
+		if rand > 0.999
 			myLogInfo('%d, L: N:%.4f P:%.4f uP:%.4f', l, Cntrsx(l), Cntrs(l), d_L_l);
 		end
 	end
