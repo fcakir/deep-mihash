@@ -1,5 +1,24 @@
 function test_unsupervised(net, imdb, batchFunc, opts, metrics, ...
         noLossLayer, subset)
+% Implementation of Hashing with Mutual Information as in:
+%
+% "Hashing with Mutual Information", 
+% Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+% (* equal contribution)
+% arXiv:1803.00974 2018
+%
+% Please cite the paper if you use this code.
+%
+% INPUTS
+%   net 	    - (struct) The neural net. Typically contains 'layers' field and 
+% 			      other related information. 
+%   imdb        - (struct) Dataset. See get_imdb.m and functions therein.
+%   batchFunc   - (function handle) batch sampling function.
+%   opts        - (struct) options, see get_opt.m and process_opts.m . 
+%   metrics 	- (string) in {'AP', 'AP@5000', 'AP@50000'}. Evaluation metric.
+%   noLossLayer - (bool) manages which layer output to get in cnn_encode* functions 
+%   subset      - (2D vector) Sample sizes for training and testing sets.
+% 				  For evaluation on a subset of the training and testing data. 
 assert(~isempty(metrics));
 if ~iscell(metrics)
     assert(isstr(metrics));
