@@ -1,5 +1,7 @@
 function [net, imageSize, normalize] = fc1(opts)
+% -----------------------------------------------------------------------------
 % Initializes a single fully connected layer. 
+% -----------------------------------------------------------------------------
 imageSize = 0;
 if isfield(opts,  'normalize')
     normalize = opts.normalize;
@@ -7,15 +9,16 @@ else
     normalize = true;
 end
 
-% only train FC layers on top of fc7 features
 if normalize
     lr = [1 0.1] ;
 else
     lr = [1 1];
 end
 
+% -----------------------------------------------------------------------------
 % LabelMe by default uses 512 dimensional GIST features, other datasets uses 
 % the penultimate layer of a VGG architecture which has 4096 dimensions. 
+% -----------------------------------------------------------------------------
 if strcmp(opts.dataset, 'labelme')
     D = 512;
 else
@@ -23,7 +26,9 @@ else
 end
 net.layers = {} ;
 
-% FC1 (logits for each bit)
+% -----------------------------------------------------------------------------
+% fully connected layer (logits for each bit)
+% -----------------------------------------------------------------------------
 net.layers{end+1} = struct('type', 'conv', ...
     'name', 'fc1', ...
     'weights', {models.init_weights(1,D,opts.nbits)}, ...
@@ -31,7 +36,9 @@ net.layers{end+1} = struct('type', 'conv', ...
     'stride', 1, ...
     'pad', 0) ;
 
+% -----------------------------------------------------------------------------
 % loss layer
+% -----------------------------------------------------------------------------
 net.layers{end+1} = struct('type', 'custom', ...
     'name', 'loss', ...
     'opts', opts, ...
@@ -40,9 +47,13 @@ net.layers{end+1} = struct('type', 'custom', ...
 net.layers{end}.precious = false;
 net.layers{end}.weights = {};
 
+% -----------------------------------------------------------------------------
 % Meta parameters
+% -----------------------------------------------------------------------------
 net.meta.inputSize = [1 1 D] ;
 
+% -----------------------------------------------------------------------------
 % Fill in default values
+% -----------------------------------------------------------------------------
 net = vl_simplenn_tidy(net) ;
 end

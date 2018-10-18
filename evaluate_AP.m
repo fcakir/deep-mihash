@@ -1,8 +1,30 @@
 function res = evaluate_AP(Htest, Htrain, Aff, opts, cutoff)
-% input: 
-%   Htrain - (logical) training binary codes
-%   Htest  - (logical) testing binary codes
-%   Aff    - Ntest x Ntrain affinity matrix
+% Given binary codes for a query (Htest) and retrieval set (Htrain),
+% computes the Mean Average Precision (at a certain cutoff, if provided).
+% 
+% Please cite the below papers if you use this code.
+%
+% 1. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    arXiv:1803.00974 2018
+%
+% 2. "MIHash: Online Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    International Conference on Computer Vision (ICCV) 2017
+%    (* equal contribution)
+%
+% INPUTS
+%   Htest    - (nbitsxNtest single) Hash table/binary codes for test set. 
+%				See cnn_encode* functions. 
+%   Htrain   - (nbitsxNtrain) Hash table/binary codes for test set. 
+%				See cnn_encode* functions. 
+%  	Aff      - (NtestxNtrain) logical affinity matrix. 
+%   opts     - (struct) options, see get_opt.m and process_opts.m . 
+%   cutoff   - (int) specifies the cutoff K of AP@K. If empty, full AP is computed. 
+%
+% OUTPUTS
+%   res      - (float) Mean Average Precision
+%
 [nbits, Ntest] = size(Htest);
 if isfield(opts, 'nbits'), assert(nbits == opts.nbits); end
 assert(size(Htrain, 1) == nbits);

@@ -1,17 +1,19 @@
 function opts = get_opts(dataset, nbits, modelType, varargin)
-% Implementation of Hashing with Mutual Information as in:
-%
-% "Hashing with Mutual Information", 
-% Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
-% (* equal contribution)
-% arXiv:1803.00974 2018
-%
-% Please cite the paper if you use this code.
-% 
 % Manages experimental parameters (opts) by creating an input parser object.
 % The parameter values are intialized with the arguments passed in with the 
 % 'demo_AP.m' function. See EXAMPLE COMMANDS in demo_AP.m .  
 %
+% Please cite the below papers if you use this code.
+%
+% 1. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    arXiv:1803.00974 2018
+%
+% 2. "MIHash: Online Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    International Conference on Computer Vision (ICCV) 2017
+%    (* equal contribution)
+% 
 % INPUTS
 %   dataset  	- (string) in {'cifar', 'nus', 'labelme'}
 %   nbits    	- (int) length of binary code

@@ -26,16 +26,17 @@ function DB = cifar(opts, net)
 set = imdb.split_cifar(labels, opts);
 
 imgSize = opts.imageSize;
+% -----------------------------------------------------------------------------
+% NOTE: The following normalization only applies when we're training on 32x32 images
+% directly. Do not do any normalization for imagenet pretrained VGG/Alexnet, 
+% for which resizing and mean subtraction are done on-the-fly during batch 
+% generation.
+% normalize by image mean and std as suggested in `An Analysis of
+% Single-Layer Networks in Unsupervised Feature Learning` Adam
+% Coates, Honglak Lee, Andrew Y. Ng
+% -----------------------------------------------------------------------------
 if opts.normalize
-    % NOTE: This normalization only applies when we're training on 32x32 images
-    % directly. Do not do any normalization for imagenet pretrained VGG/Alexnet, 
-    % for which resizing and mean subtraction are done on-the-fly during batch 
-    % generation.
     assert(imgSize == 32);
-
-    % normalize by image mean and std as suggested in `An Analysis of
-    % Single-Layer Networks in Unsupervised Feature Learning` Adam
-    % Coates, Honglak Lee, Andrew Y. Ng
 
     if opts.contrastNormalization
         z = reshape(data,[],60000) ;
@@ -57,7 +58,9 @@ if opts.normalize
     end
 end
 
-% construct the DB struct
+% -----------------------------------------------------------------------------
+% construct the output struct
+% -----------------------------------------------------------------------------
 DB.images.data = data ;
 DB.images.labels = labels ;
 DB.images.set = set;
@@ -68,7 +71,9 @@ end
 
 
 function [data, labels, set, clNames] = cifar_load_images(opts)
-% Preapre the imdb structure, returns image data with mean image subtracted
+% -----------------------------------------------------------------------------
+% Prepare the imdb structure, returns image data with mean image subtracted
+% -----------------------------------------------------------------------------
 unpackPath = fullfile(opts.dataDir, 'CIFAR-10', 'cifar-10-batches-mat');
 files = [arrayfun(@(n) sprintf('data_batch_%d.mat', n), 1:5, 'UniformOutput', false) ...
     {'test_batch.mat'}];

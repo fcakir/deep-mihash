@@ -27,17 +27,24 @@ data = vggf;
 clear vggf
 sets = imdb.split_cifar(labels, opts);
 
+% -----------------------------------------------------------------------------
 % remove mean in any case
+% -----------------------------------------------------------------------------
 Xtrain = data(sets==1, :);
 dataMean = mean(Xtrain, 1);
 data = bsxfun(@minus, data, dataMean);
 
+% -----------------------------------------------------------------------------
+% unit normalize
+% -----------------------------------------------------------------------------
 if opts.normalize
-    % unit-length
     rownorm = sqrt(sum(data.^2, 2));
     data = bsxfun(@rdivide, data, rownorm);
 end
 
+% -----------------------------------------------------------------------------
+%  create the output struct
+% -----------------------------------------------------------------------------
 DB.images.data = permute(single(data), [3 4 2 1]);
 DB.images.labels = single(labels);
 DB.images.set = uint8(sets');

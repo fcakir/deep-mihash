@@ -1,14 +1,17 @@
 function test_imagenet(net, imdb, batchFunc, opts, metrics, ...
     noLossLayer, subset)
-% Implementation of Hashing with Mutual Information as in:
+% Test function for imagenet100. 
 %
-% "Hashing with Mutual Information", 
-% Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
-% (* equal contribution)
-% arXiv:1803.00974 2018
+% Please cite the below papers if you use this code.
 %
-% Please cite the paper if you use this code.
+% 1. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    arXiv:1803.00974 2018
 %
+% 2. "MIHash: Online Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    International Conference on Computer Vision (ICCV) 2017
+%    (* equal contribution)
 %
 % INPUTS
 %   net 	    - (struct) The neural net. Typically contains 'layers' field and 
@@ -20,7 +23,7 @@ function test_imagenet(net, imdb, batchFunc, opts, metrics, ...
 %   noLossLayer - (bool) manages which layer output to get in cnn_encode* functions 
 %   subset      - (2D vector) Sample sizes for training and testing sets.
 % 				  For evaluation on a subset of the training and testing data. 
-
+%
 assert(~isempty(metrics));
 if ~iscell(metrics)
     assert(isstr(metrics));
@@ -45,11 +48,15 @@ Ytest    = imdb.images.labels(:, test_id)';
 disp(imdb.images)
 whos Ytest Ytrain
 
+% -----------------------------------------------------------------------------
 % hash tables
+% -----------------------------------------------------------------------------
 Htest  = cnn_encode_sup(net, batchFunc, imdb, test_id , opts, noLossLayer);
 Htrain = cnn_encode_sup(net, batchFunc, imdb, train_id, opts, noLossLayer);
 
+% -----------------------------------------------------------------------------
 % evaluate
+% -----------------------------------------------------------------------------
 myLogInfo('Evaluating...');
 for m = metrics
     % available metics: tieAP, tieNDCG, AP, AP@N, NDCG, NDCG@N

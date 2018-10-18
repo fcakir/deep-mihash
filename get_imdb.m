@@ -1,5 +1,4 @@
 function [imdb, opts, net] = get_imdb(imdb, opts, net)
-
 % -----------------------------------------------------------------------------
 % feature type:
 % For a fully connected single layer models, the input is a feature descriptor 

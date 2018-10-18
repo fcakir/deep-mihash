@@ -1,14 +1,17 @@
 function paths = demo_imagenet(nbits, modelType, varargin)
-% Implementation of Hashing with Mutual Information as in:
+% This is the main function to run deep learning experiments for the mutual 
+% information based hashing method as described in the below papers on ImageNet100. 
 %
-% "Hashing with Mutual Information", 
-% Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
-% (* equal contribution)
-% arXiv:1803.00974 2018
+% Please cite these papers if you use this code.
 %
-% Please cite the paper if you use this code.
+% 1. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    arXiv:1803.00974 2018
 %
-% This is the main function to run experiments for IMAGENET100.  
+% 2. "MIHash: Online Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    International Conference on Computer Vision (ICCV) 2017
+%    (* equal contribution)
 %
 % INPUTS
 %   nbits    - (int) length of binary code
@@ -124,27 +127,3 @@ end
 diary off, diary on
 end
 
-% -----------------------------------------------------------------------------
-% set learning rate
-% -----------------------------------------------------------------------------
-function lrvec = set_lr(opts)
-if opts.lrdecay>0 && opts.lrdecay<1
-    cur_lr = opts.lr;
-    lrvec = [];
-    while length(lrvec) < opts.epoch
-        lrvec = [lrvec, ones(1, opts.lrstep)*cur_lr];
-        cur_lr = cur_lr * opts.lrdecay;
-    end
-else
-    lrvec = opts.lr;
-end
-end
-
-% -----------------------------------------------------------------------------
-% set model save checkpoints:
-% the model files are saved at every epoch value as specified by 'saveps' below. 
-% -----------------------------------------------------------------------------
-function saveps = set_saveps(opts)
-saveps = 0: max(10, round(opts.lrstep/2)): opts.epoch;
-saveps = [saveps, 0: opts.lrstep: opts.epoch, opts.epoch];
-end
