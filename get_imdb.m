@@ -2,9 +2,9 @@ function [imdb, opts, net] = get_imdb(imdb, opts, net)
 
 % -----------------------------------------------------------------------------
 % feature type:
-% For the fully connected layer model (fc) the input is a feature descriptor 
-% such as GIST. 
-% For LabelMe the GIST descriptor is used. The fc7 layer features are used for
+% For a fully connected single layer models, the input is a feature descriptor 
+% such as GIST or fc7 layer features of a pre-trained neural network model. 
+% For LabelMe, GIST descriptor is used by default. The fc7 layer features are used for
 % other datasets.
 % -----------------------------------------------------------------------------
 if ~isempty(strfind(opts.modelType, 'fc')) || opts.imageSize <= 0
@@ -20,7 +20,7 @@ imdbFunc = str2func(['imdb.' imdbName]);
 
 % -----------------------------------------------------------------------------
 % normalize images/features?
-% If features are used (opposed to images) as input, then you can normalize them
+% if features are used (opposed to images) as input, then you can normalize them
 % -----------------------------------------------------------------------------
 if ismember(opts.imageSize, [224 227])
     assert(~opts.normalize);

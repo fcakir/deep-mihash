@@ -1,65 +1,82 @@
-function demo_imagenet(nbits, modelType, varargin)
+function paths = demo_imagenet(nbits, modelType, varargin)
+% Implementation of Hashing with Mutual Information as in:
+%
+% "Hashing with Mutual Information", 
+% Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+% (* equal contribution)
+% arXiv:1803.00974 2018
+%
+% Please cite the paper if you use this code.
+%
+% This is the main function to run experiments for IMAGENET100.  
+%
+% INPUTS
+%   nbits    - (int) length of binary code
+%  	modelType- (string) in {'alexnet_ft', 'vggf_ft'} among others corresponding
+%			   to the models as defined under '+models' folder. 
+%   varargin - key-value argument pairs, see get_opts.m for details
+%
+% OUTPUTS
+%   paths (struct)
+%       .expfolder - (string) Path to the experiments folder
+%       .diary     - (string) Path to the experimental log
+%
+% EXAMPLE COMMANDS
+% 	
 
-% init opts
-ip = inputParser;
-ip.addParameter('split', 1);
-ip.addParameter('obj', 'fastap'); % fastap or aplb
-ip.KeepUnmatched = true;
-ip.parse(varargin{:});
-opts = get_opts(ip.Results, 'imagenet', nbits, modelType, varargin{:});
+% -----------------------------------------------------------------------------
+% initialize opts
+% -----------------------------------------------------------------------------
+opts = get_opts('imagenet', nbits, modelType, 'split', 1, varargin{:});
+cleanupObj = onCleanup(@cleanup);
+rng(opts.randseed, 'twister'); % set global random stream
 
-%%%%%%%%%%%%%%%%% hard-coded fields %%%%%%%%%%%%%%%%%
+% hard-coded fields
 assert(ismember(opts.modelType, {'alexnet_ft', 'vggf_ft'}));
 opts.metrics = {'AP@1000'};
 opts.testFunc = @test_imagenet;
-%%%%%%%%%%%%%%%%% hard-coded fields %%%%%%%%%%%%%%%%%
 
+% -----------------------------------------------------------------------------
 % post-parsing
-cleanupObj = onCleanup(@cleanup);
+% -----------------------------------------------------------------------------
 opts = process_opts(opts);  % carry out all post-processing on opts
-record_diary(opts);
+
+% -----------------------------------------------------------------------------
+% print info
+% -----------------------------------------------------------------------------
 opts
 myLogInfo(opts.methodID);
 myLogInfo(opts.identifier);
 
-% ---------------
-% model & data
-% ---------------
-if ~isempty(opts.gpus) && opts.gpus == 0
-    opts.gpus = auto_select_gpu;
-end
+% -----------------------------------------------------------------------------
+% get neural net model 
+% -----------------------------------------------------------------------------
 [net, opts] = get_model(opts);
 
-% imdb
+% -----------------------------------------------------------------------------
+% get dataset
+% -----------------------------------------------------------------------------
 global imdb
 imdb = get_imdb(imdb, opts, net);
 
-% ---------------
-% train
-% ---------------
-sz = [opts.imageSize opts.imageSize];
-meanImage = single(net.meta.normalization.averageImage);
-if isequal(size(meanImage), [1 1 3])
-    meanImage = repmat(meanImage, sz);
-else
-    assert(isequal(size(meanImage), [sz 3]));
-end
-testBatchFunc = @(I, B) batch_imagenet(I, B, opts.imageSize, meanImage);
-trainBatchFunc = @batch_simplenn;
+% -----------------------------------------------------------------------------
+% set batch sampling function
+% -----------------------------------------------------------------------------
+batchFunc = get_batchFunc(imdb, opts, net);
 
-% figure out learning rate vector
-if opts.lrdecay>0 & opts.lrdecay<1
-    cur_lr = opts.lr;
-    lrvec = [];
-    while length(lrvec) < opts.epoch
-        lrvec = [lrvec, ones(1, opts.lrstep)*cur_lr];
-        cur_lr = cur_lr * opts.lrdecay;
-    end
-else
-    lrvec = opts.lr;
-end
-saveps = 0: max(10, round(opts.lrstep/2)): opts.epoch;
-saveps = [saveps, 0: opts.lrstep: opts.epoch, opts.epoch];
+% -----------------------------------------------------------------------------
+% set learning rate vector
+% -----------------------------------------------------------------------------
+lrvec = set_lr(opts);
+
+% -----------------------------------------------------------------------------
+% set model save checkpoints
+% -----------------------------------------------------------------------------
+saveps = set_saveps(opts);
+
+% -----------------------------------------------------------------------------
+% train
+% -----------------------------------------------------------------------------
 [net, info] = train_imagenet(net, imdb, trainBatchFunc, testBatchFunc, ...
     'continue'       , opts.continue              , ...
     'debug'          , opts.debug                 , ...
@@ -76,19 +93,11 @@ saveps = [saveps, 0: opts.lrstep: opts.epoch, opts.epoch];
     'errorFunction'  , 'none'                     , ...
     'epochCallback'  , @epoch_callback) ;
 
-if ~isempty(opts.gpus)
-    net = vl_simplenn_move(net, 'gpu'); 
-end
-
-% ---------------
-% test
-% ---------------
-if 0 %~mod(opts.epoch, opts.testInterval)
-    imdb_test = imdb;
-    imdb_test.images = imdb.images.all;
-    test_imagenet(net, imdb_test, testBatchFunc, opts, opts.metrics);
-end
-diary('off');
+% -----------------------------------------------------------------------------
+% return 
+% -----------------------------------------------------------------------------
+paths.diary 		= opts.diary_path;
+paths.expfolder 	= opts.expDir;
 end
 
 
@@ -106,19 +115,36 @@ myLogInfo('[%s]', opts.identifier);
 % test?
 imdb_test = imdb;
 imdb_test.images = imdb.images.all;
-if ~mod(epoch, opts.testInterval) || epoch == opts.epoch
+if ~mod(epoch, opts.testInterval) ...
+   || (isfield(opts, 'ep1') & opts.ep1 & epoch==1) || (epoch == opts.epoch)
     % test full
     test_imagenet(net, imdb_test, testBatchFunc, opts, opts.metrics);
-elseif epoch > 1 && ~mod(epoch, 20)
-    % test random subset
-    test_imagenet(net, imdb_test, testBatchFunc, opts, opts.metrics, ...
-        false, [200 5e3]);
 end
-% slope annealing trick
-if opts.sigmf(2) > 1
-    opts.sigmf_p = min(opts.sigmf(1), opts.sigmf_p * opts.sigmf(2));
-    net.layers{end}.opts = opts;
-    myLogInfo('Sig = %g', opts.sigmf_p);
-end
+
 diary off, diary on
+end
+
+% -----------------------------------------------------------------------------
+% set learning rate
+% -----------------------------------------------------------------------------
+function lrvec = set_lr(opts)
+if opts.lrdecay>0 && opts.lrdecay<1
+    cur_lr = opts.lr;
+    lrvec = [];
+    while length(lrvec) < opts.epoch
+        lrvec = [lrvec, ones(1, opts.lrstep)*cur_lr];
+        cur_lr = cur_lr * opts.lrdecay;
+    end
+else
+    lrvec = opts.lr;
+end
+end
+
+% -----------------------------------------------------------------------------
+% set model save checkpoints:
+% the model files are saved at every epoch value as specified by 'saveps' below. 
+% -----------------------------------------------------------------------------
+function saveps = set_saveps(opts)
+saveps = 0: max(10, round(opts.lrstep/2)): opts.epoch;
+saveps = [saveps, 0: opts.lrstep: opts.epoch, opts.epoch];
 end

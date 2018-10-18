@@ -3,7 +3,7 @@ function S = nus_split(Y, opts)
 % where 500 and 100 instances are sampled from each class for training and test
 % set. Split=2 samples 100 instances per class for test set. The remaining images
 % are used for the training set. All non-test images are used as the retrieval set.
-% Note that only 21 most frequent concepts are assumed to be used. 
+% Note that only 21 most frequent concepts are considered. 
 % See paper for more details about the experimental setup. 
 %
 % INPUTS
@@ -11,7 +11,7 @@ function S = nus_split(Y, opts)
 %   opts 	 - (struct) options, see get_opt.m and process_opts.m . 
 %
 % OUTPUTS
-%    set     - (nx1 vector) Each element is from {1,2,3} indicating 
+%    S       - (nx1 vector) Each element is from {1,2,3} indicating 
 % 						a training, validation or test instance, respectively.
 %
 if opts.split == 1

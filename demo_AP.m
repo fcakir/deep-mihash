@@ -45,7 +45,7 @@ myLogInfo(opts.methodID);
 myLogInfo(opts.identifier);
 
 % -----------------------------------------------------------------------------
-% get model 
+% get neural net model 
 % -----------------------------------------------------------------------------
 [net, opts] = get_model(opts);
 
@@ -56,7 +56,7 @@ global imdb
 [imdb, opts, net] = get_imdb(imdb, opts, net);
 
 % -----------------------------------------------------------------------------
-% get batch sampling function
+% set batch sampling function
 % -----------------------------------------------------------------------------
 batchFunc = get_batchFunc(imdb, opts, net);
 

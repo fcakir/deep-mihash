@@ -98,15 +98,15 @@ opts.identifier = idr;
 % -----------------------------------------------------------------------------
 % generic
 % -----------------------------------------------------------------------------
-opts.localDir = './cachedir';  % use symlink on linux
+opts.localDir = './cachedir'; 
 if ~exist(opts.localDir, 'file')
-	error('Please make a symlink for cachedir!');
+	error('Please make a symlink/folder for cachedir!');
 end
 opts.dataDir = fullfile(opts.localDir, 'data');
 opts.imdbPath = fullfile(opts.dataDir, [opts.dataset '_imdb']);
 
 % -----------------------------------------------------------------------------
-% expDir: format like ./cachedir/results/MI-cifar32-vggf-sp1
+% expDir: sting such as ./cachedir/results/MI-cifar32-vggf-sp1
 % -----------------------------------------------------------------------------
 opts.expDir = fullfile(opts.localDir, 'results', opts.methodID);
 if exist(opts.expDir, 'dir') == 0, 
@@ -129,9 +129,8 @@ end
 opts.identifier = [opts.prefix '-' idr];  % remove \n
 
 % -----------------------------------------------------------------------------
-% expand expDir
-% expDir (orig): ./cachedir/results/MI-cifar32-vggf-sp1
-% identifier: abcdef-Bin16Sig30,0-batch256-......
+% expand expDir to:
+% ./cachedir/results/MI-cifar32-vggf-sp1/abcdef-Bin16Sig30,0-batch256-......
 % -----------------------------------------------------------------------------
 opts.expDir = fullfile(opts.expDir, opts.identifier);
 if ~exist(opts.expDir, 'dir'),

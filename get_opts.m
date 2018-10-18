@@ -8,7 +8,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 %
 % Please cite the paper if you use this code.
 % 
-% Manages experimental parameters (opts) by creating an input parser scheme.
+% Manages experimental parameters (opts) by creating an input parser object.
 % The parameter values are intialized with the arguments passed in with the 
 % 'demo_AP.m' function. See EXAMPLE COMMANDS in demo_AP.m .  
 %
@@ -20,7 +20,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 
 %   sigmf 	 	- (2D vector). First element sets the 'sigmoid sharpness'. 
 % 				  It corresponds to the 'a' value in MATLAB's sigmf function.
-% 				  The second parameter is zero and is kept for future purposes.  
+% 				  The second element is zero and is kept for future purposes.  
 % 	nbins 	 	- (int) Number of bins to be used for the distance distributions. 
 % 				- A good value is nbins=nbits/2.
 % 	obj 	 	- (string) A prefix that determines the loss layer. If set to 'mi'
@@ -36,7 +36,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 % 	lrdecay 	- (float) Learning rate decay parameter
 % 	
 % 	lrmult 		- (float) Multiplies the learning rate for the pre-trained layers of
-%				   alexnet_ft and vggf_ft. Must be [0, 1]. 
+%				   alexnet_ft and vggf_ft. Must be between [0, 1]. 
 % 	wdecay 		- (float) l2 regularization parameter. 
 % 	bpdepth		- (int) Backpropagates the gradients to the last 'bpdepth' layers.
 % 				  Set to Inf.
@@ -44,11 +44,11 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 
 %	epoch 		- (int) Number of epochs. 
 % 	gpus 		- (int vector) specificies the gpus id. If set to [], then cpu is
-%				  used. The appropiated MatConvNet library must be installed. 
+%				  used. The appropiate MatConvNet library must be installed. 
 % 	continue 	- (bool) Whether to continue from last saved epoch. 
 % 	debug 		- (bool) For debugging purposes.  
 % 	split 		- (int) in {1, 2}. Applicable only for CIFAR and NUSWIDE. Specifies
-% 				  the training set size. See +imdb/split_* functions and the paper
+% 				  the training/test set siplit See +imdb/split_* functions and the paper
 % 				  for details.
 
 %   metrics 	- (string) in {'AP', 'AP@5000', 'AP@50000'}. Evaluation metric.
