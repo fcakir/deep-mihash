@@ -1,6 +1,6 @@
 function [net, imageSize, normalize] = fc1(opts)
 % -----------------------------------------------------------------------------
-% Initializes a single fully connected layer. 
+% Initializes a one fully connected layer. 
 % -----------------------------------------------------------------------------
 imageSize = 0;
 if isfield(opts,  'normalize')

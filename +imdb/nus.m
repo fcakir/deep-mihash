@@ -82,13 +82,13 @@ myLogInfo('Keeping # images = %g', sum(keep));
 % -----------------------------------------------------------------------------
 % split
 % -----------------------------------------------------------------------------
-sets = imdb.split_nus(labels, opts);
+set = imdb.split_nus(labels, opts);
 
 % -----------------------------------------------------------------------------
 % construct the DB struct
 % -----------------------------------------------------------------------------
 DB.images.data = images;  % only save image paths, load images during training
 DB.images.labels = single(labels)';
-DB.images.set = uint8(sets)';
+DB.images.set = uint8(set)';
 DB.meta.sets = {'train', 'val', 'test'} ;
 end

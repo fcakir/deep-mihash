@@ -1,6 +1,6 @@
 function opts = get_opts(dataset, nbits, modelType, varargin)
 % Manages experimental parameters (opts) by creating an input parser object.
-% The parameter values are intialized with the arguments passed in with the 
+% The parameter values are initialized with the arguments passed in with the 
 % 'demo_AP.m' function. See EXAMPLE COMMANDS in demo_AP.m .  
 %
 % Please cite the below papers if you use this code.
@@ -15,7 +15,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 %    (* equal contribution)
 % 
 % INPUTS
-%   dataset  	- (string) in {'cifar', 'nus', 'labelme'}
+%   dataset  	- (string) in {'cifar', 'nus', 'imagenet', 'labelme'}
 %   nbits    	- (int) length of binary code
 %  	modelType	- (string) in {'fc1', 'vggf', 'vggf_ft'} (among others) corresponding
 %			   	  to the models as defined under '+models' folder. 
@@ -30,7 +30,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 % 				  used. 
 
 % 	normalize 	- (bool) Determines whether to apply normalization to the input features.
-% 				  Only applicable when input is GIST, FC7 or other similar feature descrpiptors.
+% 				  Only applicable when input is GIST, FC7 or other similar feature descriptors.
 % 	solver 		- (string) The SGD solver. Default option is 'sgd'. 
 %	batchSize 	- (int) Batch size.
 % 	lr 			- (float) Learning rate
@@ -50,7 +50,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 % 	continue 	- (bool) Whether to continue from last saved epoch. 
 % 	debug 		- (bool) For debugging purposes.  
 % 	split 		- (int) in {1, 2}. Applicable only for CIFAR and NUSWIDE. Specifies
-% 				  the training/test set siplit See +imdb/split_* functions and the paper
+% 				  the training/test set split See +imdb/split_* functions and the paper
 % 				  for details.
 
 %   metrics 	- (string) in {'AP', 'AP@5000', 'AP@50000'}. Evaluation metric.

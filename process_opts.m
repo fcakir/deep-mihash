@@ -106,7 +106,7 @@ opts.dataDir = fullfile(opts.localDir, 'data');
 opts.imdbPath = fullfile(opts.dataDir, [opts.dataset '_imdb']);
 
 % -----------------------------------------------------------------------------
-% expDir: sting such as ./cachedir/results/MI-cifar32-vggf-sp1
+% expDir: string such as ./cachedir/results/MI-cifar32-vggf-sp1
 % -----------------------------------------------------------------------------
 opts.expDir = fullfile(opts.localDir, 'results', opts.methodID);
 if exist(opts.expDir, 'dir') == 0, 

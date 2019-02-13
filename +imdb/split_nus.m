@@ -1,5 +1,5 @@
-function S = nus_split(Y, opts)
-% Sets the training set size. Two different partitionings are used: split=1 
+function S = split_nus(Y, opts)
+% Does the training-testing set split. Two different splits are used: split=1 
 % where 500 and 100 instances are sampled from each class for training and test
 % set. Split=2 samples 100 instances per class for test set. The remaining images
 % are used for the training set. All non-test images are used as the retrieval set.

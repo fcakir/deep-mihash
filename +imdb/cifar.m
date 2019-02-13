@@ -18,8 +18,11 @@ function DB = cifar(opts, net)
 % 				.set    (1x60000 vector) Each element is from {1,2,3} indicating 
 % 						a training, validation and test image, respectively. 
 %       .meta (struct)
-% 				.sets   (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
-%
+% 				.sets    (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
+%               .classes (10x1 cell array) corresponds to class names for
+%                        each labels id 
+%       .name  (str)     name of the database 
+%       .filepath (str)  file path location for the database file
 %
 
 [data, labels, ~, names] = cifar_load_images(opts);
@@ -63,7 +66,7 @@ end
 % -----------------------------------------------------------------------------
 DB.images.data = data ;
 DB.images.labels = labels ;
-DB.images.set = set;
+DB.images.set = uint8(set');
 DB.meta.sets = {'train', 'val', 'test'} ;
 DB.meta.classes = names.label_names;
 end

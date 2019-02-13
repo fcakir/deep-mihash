@@ -1,4 +1,4 @@
-function y = dTriPulse(D, mid, delta);
+function y = triPulseDeriv(D, mid, delta);
 % -----------------------------------------------------------------------------
 % vectorized version
 % mid: scalar bin center

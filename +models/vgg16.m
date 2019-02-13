@@ -1,4 +1,4 @@
-function [net, imageSize, normalize] = vgg(opts)
+function [net, imageSize, normalize] = vgg16(opts)
 % -----------------------------------------------------------------------------
 % Initializes a pre-trained VGG-16 net for transfer learningg. 
 % -----------------------------------------------------------------------------

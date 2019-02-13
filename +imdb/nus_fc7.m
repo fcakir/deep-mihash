@@ -23,7 +23,7 @@ function DB = nus_fc7(opts, net)
 % 				.sets   (1x3 cell array) corresponds to {'train', 'val', 'test'}. 
 %
 [data, labels] = load_fc7_nus(opts, true);
-sets = imdb.split_nus(labels, opts);
+set = imdb.split_nus(labels, opts);
 
 % -----------------------------------------------------------------------------
 % remove mean in any case
@@ -45,7 +45,7 @@ end
 % -----------------------------------------------------------------------------
 DB.images.data = permute(single(data), [3 4 2 1]);
 DB.images.labels = single(labels)';
-DB.images.set = uint8(sets');
+DB.images.set = uint8(set');
 DB.meta.sets = {'train', 'val', 'test'} ;
 end
 

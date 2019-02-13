@@ -1,4 +1,4 @@
-function [net, stats] = cnn_train(net, imdb, getBatch, varargin)
+function [net, stats] = train_simplenn(net, imdb, getBatch, varargin)
 %CNN_TRAIN  An example implementation of SGD for training CNNs
 %    CNN_TRAIN() is an example learner implementing stochastic
 %    gradient descent with momentum to train a CNN. It can be used
@@ -18,7 +18,6 @@ function [net, stats] = cnn_train(net, imdb, getBatch, varargin)
 % the terms of the BSD license (see the COPYING file).
 addpath(fullfile(vl_rootnn, 'examples'));
 
-% [KH] new fields
 opts.debug = false;
 opts.saveEpochs = [];
 opts.epochCallback = [];
@@ -333,9 +332,14 @@ for t=1:params.batchSize:numel(subset)
       dzdy = [] ;
       evalMode = 'test' ;
     end
-    net.layers{end}.class = labels ;
+    
+    % pass label information to last layer
+    net.layers{end}.class = labels;
+    
     % for unsupervised datasets
-    net.layers{end}.rawinput = im;
+    if net.layers{end}.opts.unsupervised       
+        net.layers{end}.rawinput = im;
+    end
     res = vl_simplenn(net, im, dzdy, res, ...
                       'accumulate', s ~= 1, ...
                       'mode', evalMode, ...

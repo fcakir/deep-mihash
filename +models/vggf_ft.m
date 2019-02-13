@@ -1,4 +1,4 @@
-function [net, imageSize, normalize] = vggf_nus(opts)
+function [net, imageSize, normalize] = vggf_ft(opts)
 % -----------------------------------------------------------------------------
 % Initializes a pre-trained VGG-F net for transfer learning, for NUSWIDE.  
 % -----------------------------------------------------------------------------

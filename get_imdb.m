@@ -1,7 +1,7 @@
 function [imdb, opts, net] = get_imdb(imdb, opts, net)
 % -----------------------------------------------------------------------------
 % feature type:
-% For a fully connected single layer models, the input is a feature descriptor 
+% For fully connected single layer models, the input is a feature descriptor 
 % such as GIST or fc7 layer features of a pre-trained neural network model. 
 % For LabelMe, GIST descriptor is used by default. The fc7 layer features are used for
 % other datasets.
@@ -58,7 +58,7 @@ if exist(imdbFile, 'file')
     imdb = load(imdbFile) ;
     myLogInfo('loaded in %.2fs', toc(t0));
 else
-    imdb = imdbFunc(opts, net) ;
+    imdb = imdbFunc(opts, net);
     save(imdbFile, '-struct', 'imdb', '-v7.3') ;
     unix(['chmod g+rw ' imdbFile]); 
     myLogInfo('saved in %.2fs', toc(t0));

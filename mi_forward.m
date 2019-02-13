@@ -100,25 +100,6 @@ top.aux.pDCn = pDCn;
 top.aux.pD   = pD;
 end
 
-
-function y = triPulse_old(D, mid, delta, onGPU)
-% differently vectorized version
-%
-%   D: 1xN row vector of input data
-% mid: Bx1 column vector of bin centers
-%   y: BxN "pulse" matrix
-assert(isvector(mid) & isvector(D));
-if ~iscolumn(mid), mid = mid'; end
-if ~isrow(D), D = D'; end
-
-y = zeros(length(mid), length(D));
-if onGPU, y = gpuArray(y); end
-
-x_minus_mid = bsxfun(@minus, D, mid);
-ind = bsxfun(@gt, D, mid-delta) & bsxfun(@le, D, mid+delta);
-y(ind) = 1 - abs(x_minus_mid(ind))./delta;
-end
-
 % -----------------------------------------------------------------------------
 % entropy
 % -----------------------------------------------------------------------------

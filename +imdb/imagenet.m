@@ -1,9 +1,5 @@
 function imdb = imagenet100(opts, net)
-if opts.SCC
-    sdir = fullfile(opts.dataDir, 'ImageNet_scc');
-else
-    sdir = fullfile(opts.dataDir, 'ImageNet');
-end
+sdir = fullfile(opts.dataDir, 'ImageNet');
 
 % train
 [img_train, cls_train] = readHashNetTxt(fullfile(sdir, 'train.txt'), sdir);
