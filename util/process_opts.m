@@ -7,6 +7,7 @@ function opts = process_opts(opts)
 if strcmp(opts.dataset, 'cifar')
     opts.testFunc = @test_supervised;
     opts.unsupervised = false;
+	assert(ismember(opts.modelType, {'vggf', 'fc1'}));
 elseif strcmp(opts.dataset, 'nus')
     opts.testFunc = @test_supervised;
     opts.unsupervised = false;
@@ -14,12 +15,15 @@ elseif strcmp(opts.dataset, 'nus')
         myLogInfo('Overriding modelType vggf with vggf_ft');
         opts.modelType = 'vggf_ft';
     end
+	assert(ismember(opts.modelType, {'vggf_ft', 'fc1'}));
 elseif strcmp(opts.dataset, 'labelme')
     opts.testFunc = @test_unsupervised;
     opts.unsupervised = true;
+	assert(ismember(opts.modelType == 'fc1'));
 elseif strcmp(opts.dataset, 'imagenet') % for future purposes 
     opts.testFunc = @test_supervised;
     opts.unsupervised = false;
+	assert(opts.modelType == 'alexnet_ft');
 else, error('unknown dataset');
 end
 
@@ -30,7 +34,7 @@ if strcmp(opts.modelType, 'fc1')
     opts.bpdepth = inf;
     opts.dropout = 0;
 end
-if ismember(opts.modelType, {'alexnet_ft', 'vgg16', 'vggf', 'vggf_ft'})
+if ismember(opts.modelType, {'alexnet_ft', 'vggf', 'vggf_ft'})
     opts.normalize = false;
     assert(numel(opts.gpus) > 0, 'set ''gpus'' for non-single layer architectures');
 end
@@ -79,7 +83,8 @@ end
 if opts.dropout > 0 && opts.dropout < 1
     idr = sprintf('%s-Dropout%g', idr, opts.bpdepth);
 end
-% 5. VGG-F on NUS: lr multiplier for pretrained layers
+% 5. VGG-F on NUS and AlexNet on ImageNet100
+%    lr multiplier for pretrained layers
 if ismember(opts.modelType, {'vggf_ft' 'alexnet_ft'})
     if opts.lrmult > 1 || opts.lrmult < 0
         opts.lrmult = max(0, min(opts.lrmult, 1));

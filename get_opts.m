@@ -17,7 +17,7 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 % INPUTS
 %   dataset  	- (string) in {'cifar', 'nus', 'imagenet', 'labelme'}
 %   nbits    	- (int) length of binary code
-%  	modelType	- (string) in {'fc1', 'vggf', 'vggf_ft'} (among others) corresponding
+%  	modelType	- (string) in {'fc1', 'vggf', 'vggf_ft', 'alexnet_ft'} (among others) corresponding
 %			   	  to the models as defined under '+models' folder. 
 
 %   sigmf 	 	- (2D vector). First element sets the 'sigmoid sharpness'. 
