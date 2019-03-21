@@ -106,3 +106,17 @@ function dHp = deriv_ent(p, minus1s)
 dHp = minus1s;
 dHp(p>0) = dHp(p>0) - log2(p(p>0));
 end
+
+% -----------------------------------------------------------------------------
+% derivative of triangular kernel function
+% -----------------------------------------------------------------------------
+function y = triPulseDeriv(D, mid, delta);
+% -----------------------------------------------------------------------------
+% vectorized version
+% mid: scalar bin center
+%   D: can be a matrix
+% -----------------------------------------------------------------------------
+ind1 = (D > mid-delta) & (D <= mid);
+ind2 = (D > mid) & (D <= mid+delta);
+y = (ind1 - ind2) / delta;
+end
