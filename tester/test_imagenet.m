@@ -20,7 +20,7 @@ function test_imagenet(net, imdb, batchFunc, opts, metrics, ...
 %   batchFunc   - (function handle) batch sampling function.
 %   opts        - (struct) options, see get_opt.m and process_opts.m . 
 %   metrics 	- (string) in {'AP', 'AP@5000', 'AP@50000'}. Evaluation metric.
-%   noLossLayer - (bool) manages which layer output to get in cnn_encode* functions 
+%   noLossLayer - (bool) manages which layer output to get, see cnn_encode* functions 
 %   subset      - (2D vector) Sample sizes for training and testing sets.
 % 				  For evaluation on a subset of the training and testing data. 
 %

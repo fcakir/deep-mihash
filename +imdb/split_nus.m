@@ -7,7 +7,7 @@ function S = split_nus(Y, opts)
 % See paper for more details about the experimental setup. 
 %
 % INPUTS
-%  	   Y 	 - (nxl) Each column is the concept membership indicator of an image.
+%  	   Y 	 - (nxl) Each row is an image, columns are the concepts. 
 %   opts 	 - (struct) options, see get_opt.m and process_opts.m . 
 %
 % OUTPUTS

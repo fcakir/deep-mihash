@@ -24,6 +24,7 @@ function DB = nus(opts, net)
 % 	  | 	| 	  |-- 00001_534152430.jpg
 % 	  | 	| 	  |--   ... 
 % 		...
+%
 % The {sdir} directory is under opts.dataDir. opts.dataDir is generally
 % set to {opts.localDir}/data . Note that opts.localDir generally is './cachedir'.
 % See process_opts.m. 

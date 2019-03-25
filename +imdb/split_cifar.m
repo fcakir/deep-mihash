@@ -1,5 +1,5 @@
 function S = split_cifar(Y, opts)
-% Does the training-test set split. Two different splits are used: split=1 
+% Performs the training-test set split. Two different splits are used: split=1 
 % where 500 and 100 instances are sampled from each class for the training and test
 % sets. Split=1 samples 1000 instances per class for the test set. The remaining images
 % are used as the training set. All non-test images are used as the retrieval set.
