@@ -28,7 +28,7 @@ set = imdb.split_nus(labels, opts);
 % -----------------------------------------------------------------------------
 % remove mean in any case
 % -----------------------------------------------------------------------------
-Xtrain = data(sets==1, :);
+Xtrain = data(set==1, :);
 dataMean = mean(Xtrain, 1);
 data = bsxfun(@minus, data, dataMean);
 

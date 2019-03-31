@@ -26,8 +26,8 @@ function paths = demo_AP(dataset, nbits, modelType, varargin)
 %       .diary     - (string) Path to the experimental log
 %
 % EXAMPLE COMMANDS
-% 	
-
+% refer to github page
+% 
 % -----------------------------------------------------------------------------
 % initialize opts
 % -----------------------------------------------------------------------------

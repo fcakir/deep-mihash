@@ -1,4 +1,5 @@
-addpath('util');
+addpath('util', 'batch-generator', 'encoder', 'getter', 'mihash', 'tester', ...
+    'trainer');
 
 [r, name] = unix('hostname');
 name = name(1:end-1);
