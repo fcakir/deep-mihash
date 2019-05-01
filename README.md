@@ -3,7 +3,7 @@ This repository contains the MATLAB implementation of the following paper:
 
 **Hashing with Mutual Information**,  
 Fatih Cakir*, Kun He*, Sarah Adel Bargal, and Stan Sclaroff.
-TPAMI (revision) ([arXiv](https://arxiv.org/abs/1803.00974))
+TPAMI 2019 (to appear) ([arXiv](https://arxiv.org/abs/1803.00974))
 
 If you use this code in your research, please cite:
 ```
