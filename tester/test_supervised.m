@@ -44,13 +44,8 @@ if exist('subset', 'var')
     train_id = train_id(randperm(numel(train_id), subset(2)));
 end
 
-if strcmp(opts.obj, 'hbmp')
-	Ytrain   = imdb.images.orig_labels(:, train_id)';
-	Ytest    = imdb.images.orig_labels(:, test_id)';
-else
-	Ytrain   = imdb.images.labels(:, train_id)';
-	Ytest    = imdb.images.labels(:, test_id)';
-end
+Ytrain   = imdb.images.labels(:, train_id)';
+Ytest    = imdb.images.labels(:, test_id)';
 whos Ytest Ytrain
 
 % -----------------------------------------------------------------------------
@@ -59,23 +54,6 @@ whos Ytest Ytrain
 Htest  = cnn_encode_sup(net, batchFunc, imdb, test_id , opts, noLossLayer);
 Htrain = cnn_encode_sup(net, batchFunc, imdb, train_id, opts, noLossLayer);
 
-
-% -----------------------------------------------------------------------------
-% some stats on hashed codes
-% -----------------------------------------------------------------------------
-if strcmpi(opts.obj,'hbmp') & true
-	Htrainb = zeros(size(Htrain,1), size(Htrain,2));
-	for i=1:length(imdb.images.ulabels)
-		ind = find(imdb.images.ulabels(i) == imdb.images.orig_labels(train_id));
-		Htrainb(:, ind) = repmat(imdb.images.GCodes(i,:)', 1, length(ind));
-	end
-	myLogInfo('Ideal vs. Generated hash codes diff.=%g (Frobenius norm)\n', norm(Htrain-Htrainb,'fro'));  
-	AA = (Htrain~=Htrainb);
-	myLogInfo('Frac. of ineq. bits=%g\n', sum(AA(:))./numel(AA(:)));
-	an = sum(AA, 1);
-	an = accumarray(an'+1, 1);
-	myLogInfo('Frac. of equal instances=%g\n', an(1)./length(train_id));
-end
 % -----------------------------------------------------------------------------
 % evaluate
 % -----------------------------------------------------------------------------
@@ -92,18 +70,8 @@ for m = metrics
         cutoff = [];
         evalFn = str2func(['evaluate_' m{1}]);
     end
-
-	% HBMP 
-   	% evaluate_AP only for now
-	bit_weights = [];
-	if isfield(imdb.images,'bit_weights')
-		bit_weights = imdb.images.bit_weights;
-		if opts.weighted
-			assert(~isempty(bit_weights));
-		end
-	end
 	
-    evalFn(Htest, Htrain, Aff, opts, cutoff, bit_weights);
+    evalFn(Htest, Htrain, Aff, opts, cutoff);
 end
 end
 

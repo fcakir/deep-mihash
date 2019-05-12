@@ -1,4 +1,4 @@
-function res = evaluate_AP(Htest, Htrain, Aff, opts, cutoff, bit_weights)
+function res = evaluate_AP(Htest, Htrain, Aff, opts, cutoff)
 % Given binary codes for a query (Htest) and retrieval set (Htrain),
 % computes the Mean Average Precision (at a certain cutoff, if provided).
 % 
@@ -41,29 +41,6 @@ t0 	= tic;
 Aff = Aff > 0;
 APr = zeros(Ntest, 1);
 
-if strcmp(opts.obj, 'hbmp')
-	sim = compare_hash_tables(Htrain, Htest, bit_weights);
-	for i=1:Ntest
-		A = Aff(i,:);
-		if isempty(cutoff)
-    		A = 2*double(A)-1;
-	       	[~, ~, info] = vl_pr(A, double(sim(:, i)));
-        	APr(i) = info.ap;
-		else
-         	sim_j = double(sim(:, i));
-           	[~,idx] = sort(sim_j,'descend');
-			A = 2*A(idx(1:cutoff))-1;
-           	[~, ~, info] = vl_pr(A, sim_j(idx(1:cutoff)));
-		end
-        APr(i) = info.ap;
-	end
-    APr = APr(~isnan(APr));
-	myLogInfo('      AP = %g', mean(APr));
-	myLogInfo('%.2f seconds\n', toc(t0));
-	res = [mean(APr), 0, 0];
-	return 
-end	
-
 phi_t = 2*Htest  - 1;
 phi_r = 2*Htrain - 1; 
 hdist = (nbits - phi_t' * phi_r)/2;  % pairwise dist matrix
@@ -98,18 +75,5 @@ function AP = get_AP(l)
     end
     drl = [0, diff(rl)];
     AP = sum(drl .* pl);            
-end
-
-function sim = compare_hash_tables(Htrain, Htest, bit_weights)
-	trainsize = size(Htrain, 2);
-	testsize  = size(Htest, 2);
-	if isempty(bit_weights)
-		sim = (2*single(Htrain)-1)'*(2*single(Htest)-1);
-	else
-	if isrow(bit_weights), bit_weights = bit_weights'; end;
-		Htrain = repmat(bit_weights, 1, trainsize) .* (2*single(Htrain)-1);
-		Htest = (2*single(Htest)-1);
-		sim = Htrain'*Htest;
-	end
 end
 

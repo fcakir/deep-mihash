@@ -59,20 +59,6 @@ global imdb
 [imdb, opts, net] = get_imdb(imdb, opts, net);
 
 % -----------------------------------------------------------------------------
-% HBMP codes
-% -----------------------------------------------------------------------------
-if strcmpi(opts.obj, 'hbmp')
-	if ~isfield(imdb.images,'greedy_labels')
-		if ~isfield(imdb.images, 'orig_labels')
-			myLogInfo('Doing binary inference, learning from scratch');
-			opts.continue = false;
-			imdb = hbmp_codes(imdb, opts);
-		end
-	else
-		imdb.images.labels = imdb.images.greedy_labels;
-	end
-end
-% -----------------------------------------------------------------------------
 % set batch sampling function
 % -----------------------------------------------------------------------------
 batchFunc = get_batchFunc(imdb, opts, net);
@@ -106,13 +92,6 @@ saveps = set_saveps(opts);
     'errorFunction', 'none', ...
     'epochCallback', @epoch_callback) ;
 
-% -----------------------------------------------------------------------------
-% swap the hbmp codes with original labels
-% -----------------------------------------------------------------------------
-if strcmpi(opts.obj, 'hbmp')
-    imdb.images.greedy_labels = imdb.images.labels;
-    imdb.images.labels = imdb.images.orig_labels;
-end
 % -----------------------------------------------------------------------------
 % return 
 % -----------------------------------------------------------------------------

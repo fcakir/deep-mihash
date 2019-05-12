@@ -97,27 +97,6 @@ end
 if opts.normalize
     idr = [idr, '-ftnorm']; 
 end
-% 7. get binary inference id 
-if strcmpi(opts.obj, 'hbmp')
-	if opts.random_codes == 1
-		error('random codes not implemented yet');
-		opts.weighted = 0; 
-		opts.regress = 0;
-		inference_id = 'RANDOM_CODES';
-	elseif (opts.random_codes == 0) && (opts.weighted == 0)
-		myLogInfo('Setting max_iter to nbits for CONSTANT codes\n necessary for scaling');
-		opts.max_iter = opts.nbits;
-		opts.regress = 0;
-		inference_id = 'CONSTANT_CODES';
-	elseif (opts.random_codes == 0) && (opts.weighted == 1) && (opts.regress == 0)
-		inference_id = 'WEIGHTED_CODES';
-	elseif (opts.random_codes == 0) && (opts.weighted == 1) && (opts.regress == 1)
-		inference_id = 'WEIGHTED_REGRESSED_CODES';
-	else
-		error('Unknown binary inference option!');
-	end
-	idr = sprintf('%s-%s', idr, inference_id);
-end
 
 opts.identifier = idr;
 
