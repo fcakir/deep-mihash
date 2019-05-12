@@ -116,6 +116,14 @@ ip.addParameter('testInterval', 10);
 ip.addParameter('ep1', false);
 
 % -----------------------------------------------------------------------------
+% hbmp parameters
+% -----------------------------------------------------------------------------
+ip.addParameter('random_codes' 	, 0); % TODO: not used currently
+ip.addParameter('weighted' 		, 1);
+ip.addParameter('regress' 		, 1);
+ip.addParameter('max_iter' 		, 32);
+ip.addParameter('tolerance' 	, 1e-6);
+% -----------------------------------------------------------------------------
 % misc
 % -----------------------------------------------------------------------------
 ip.addParameter('randseed', 0);

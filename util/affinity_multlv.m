@@ -21,23 +21,14 @@ else
     [N1, Dy] = size(Y1);
     [N2, Dy2] = size(Y2); assert(Dy2 == Dy);
     if isvector(Y1)
-		assert(strcmpi(opts.dataset, 'cifar'));
-		S = reshape(load('cifar_wordnet_path_sim.txt'), 10, 10);
-		Aff = zeros(length(Y1), length(Y2), 'single');
-		for it=1:length(Y1)
-			Aff(it, :) = S(Y1(it), Y2);
-		end
-		return
-        %Aff = bsxfun(@eq, Y1, Y2');
+        Aff = bsxfun(@eq, Y1, Y2');
     else
         Aff = Y1 * Y2';
-		Aff = Aff/max(Aff(:));
-		return
+		Aff = Aff/max(Aff(:)); 
     end
-    %if isfield(opts, 'jaccard') && opts.jaccard  % intersection over union
-    %    Aff = Aff ./ (Dy - (1-Y1)*(1-Y2)');
-    %end
-    %Aff = int8(Aff);
 end
 
+if strcmp(opts.obj, 'hbmp')
+   Aff = single(Aff);
+end   
 end

@@ -16,5 +16,7 @@ else
         Aff = (Y1 * Y2' > 0);
     end
 end
-
+if strcmp(opts.obj, 'hbmp')
+	Aff = single(Aff);
+end
 end

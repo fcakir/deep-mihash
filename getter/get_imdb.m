@@ -50,6 +50,18 @@ imdbFile = fullfile(opts.dataDir, 'IMDB-FILES', ['imdb_' imdbName]);
 imdbFile = [imdbFile, '.mat'];
 myLogInfo(imdbFile);
 
+% unsupervised imdb files are pretty large, save them 
+if strcmpi(opts.obj, 'ecoc') && opts.unsupervised
+	imdbFile = sprintf('%s-Bits%d', imdbFile, opts.nbits);
+	if ~opts.weighted
+		imdbFile = sprintf('%s-Constant', imdbFile);
+	elseif opts.weighted && opts.regress
+		imdbFile = sprintf('%s-Regressed', imdbFile);
+	else
+		error('Not supported currently!');
+	end
+end
+
 % -----------------------------------------------------------------------------
 % load/save
 % -----------------------------------------------------------------------------
