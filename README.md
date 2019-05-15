@@ -16,7 +16,7 @@ If you use this code in your research, please cite:
 }
 ```
 
-:warning: The **[hbmp](https://github.com/fcakir/deep-mihash/tree/hbmp)** branch contains the implemenations of the follow paper:
+:warning: The **[hbmp](https://github.com/fcakir/deep-mihash/tree/hbmp)** branch contains the implementation of the following paper:
 
 **Hashing with Binary Matrix Pursuit**,  
 Fatih Cakir, Kun He, and Stan Sclaroff.
