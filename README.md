@@ -3,7 +3,7 @@ This repository contains the MATLAB implementation of the following paper:
 
 **Hashing with Mutual Information**,  
 Fatih Cakir*, Kun He*, Sarah Adel Bargal, and Stan Sclaroff.
-TPAMI 2019 (to appear) ([arXiv](https://arxiv.org/abs/1803.00974))
+**TPAMI** 2019 (to appear) ([arXiv](https://arxiv.org/abs/1803.00974))
 
 If you use this code in your research, please cite:
 ```
@@ -16,6 +16,22 @@ If you use this code in your research, please cite:
 }
 ```
 
+:warning: The **[hbmp](https://github.com/fcakir/deep-mihash/tree/hbmp)** branch contains the implemenations of the follow paper:
+
+**Hashing with Binary Matrix Pursuit**,  
+Fatih Cakir, Kun He, and Stan Sclaroff.
+**ECCV** 2018 ([arXiv](http://openaccess.thecvf.com/content_ECCV_2018/html/Fatih_Cakir_Hashing_with_Binary_ECCV_2018_paper.html))
+
+If you use this code in your research, please cite:
+```
+@InProceedings{Cakir_2018_ECCV,
+author = {Cakir, Fatih and He, Kun and Sclaroff, Stan},
+title = {Hashing with Binary Matrix Pursuit},
+booktitle = {The European Conference on Computer Vision (ECCV)},
+year = {2018}
+}
+```
+
 ## Setup
 * Install or symlink [MatConvNet](http://www.vlfeat.org/matconvnet/) at `./matconvnet` (for training CNNs)
 * Install or symlink [VLFeat](http://www.vlfeat.org/)  at `./vlfeat`
@@ -23,6 +39,9 @@ If you use this code in your research, please cite:
 * [Download](https://www.dropbox.com/s/n2nxibo0ckdo6hp/models.tar.gz?dl=0) necessary model files to `./cachedir/models/`
 * Create `./cachedir/results/` folder to hold experimental data
 * In the root folder, run `startup.m`
+
+:warning: Follow the setup instructions for **HBMP** in the **[hbmp](https://github.com/fcakir/deep-mihash/tree/hbmp)** branch.
+
 ## Example Commands
 * The main functions for experimenting are `demo_imagenet.m` (for the ImageNet100 benchmark) and `demo_AP.m` (for other benchmarks such as CIFAR-10 and NUSWIDE). 
 * The main arguments can be found in `get_opts.m`. 
