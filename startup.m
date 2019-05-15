@@ -6,3 +6,5 @@ name = name(1:end-1);
 myLogInfo('Hostname = %s', name);
 run ./matconvnet/matlab/vl_setupnn
 myLogInfo('MatConvNet ready');
+
+run ./vlfeat/toolbox/vl_setup
