@@ -28,21 +28,21 @@ year = {2018}
 * The main functions for experimenting is `demo.m`. The main arguments can be found in `get_opts.m`. 
 * Below are examples commands to replicate some of the results in the HBMP paper above. Please refer to *Section 4* of the paper and `get_opts.m` for experimental setting and parameter details. 
     * **CIFAR-1, 12 bits, AP** *(Table 1)*: 
-    `demo('cifar',12, 'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split',1, 'max_iter', 12, 'metrics', 'AP')`
+    	* `demo('cifar',12, 'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split',1, 'max_iter', 12, 'metrics', 'AP')`
     * **CIFAR-2, 32 bits, AP** *(Table 2)* : 
-   `demo('cifar', 32,'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split', 2, 'max_iter', 32, 'metrics', 'AP')`
+  	* `demo('cifar', 32,'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split', 2, 'max_iter', 32, 'metrics', 'AP')`
     * **NUSWIDE-1, 32 bits, AP@5K** *(Table 1)* : 
-    `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
+   	* `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
     * **NUSWIDE-1, 32 bits, AP@5K** *(constant, Table 5)* : 
-    `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
+   	* `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
     * **NUSWIDE-2, 32 bits AP@50K** *(Table 2)* : 
-    `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 1, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
+    	* `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 1, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
     * **NUSWIDE-2, 32 bits AP@50K** *(constant, Table 2)* : 
-    `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 0, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
+    	* `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 0, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
     * **NUSWIDE-1, 32 bits NDCG** *(Table 4)* : 
-    `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')`
+    	* `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')`
     * **NUSWIDE-1, 32 bits NDCG** (constant, Table 6)  : 
-    `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')`
+     * `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')`
 
 
 ## License
