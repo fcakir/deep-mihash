@@ -67,14 +67,11 @@ year = {2018}
 		*  `demo_imagenet(48, 'alexnet_ft', 'split', 1 , 'nbins', 16, 'lr', 0.1, 'lrdecay', 0.05, 'lrmult', 0.01, 'lrstep', 100, 'nbins', 16, 'sigmf', [10 0], 'testInterval', 25, 'metrics', {'AP', 'AP@1000'}, 'epoch', 125)`
         * [Download](https://www.dropbox.com/s/34xb6wea3a7jsas/imagenet100-diary.txt?dl=0) an example diary for the above experiment. You should get **~0.68-0.69** mAP@1K at 125 epochs. 
 
-Note that there might be slight differences in results and parameter names
 ## License
 MIT License, see `LICENSE`
 
 ## Contact
-For questions and comments, feel free to contact:
-
-fcakirs@gmail.com
+For questions and comments, feel free to contact: fcakirs@gmail.com
 
 ## Notes
 - This implementation extends [MIHash](http://github.com/fcakir/mihash), and is specifically designed for deep learning experiments. Special thanks to [Kun](http://github.com/kunhe) and [Sarah](https://github.com/sbargal).
