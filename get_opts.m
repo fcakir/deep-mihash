@@ -103,7 +103,7 @@ ip.addParameter('dropout'   , 0);
 % train
 % -----------------------------------------------------------------------------
 ip.addParameter('epoch'    , 50);
-ip.addParameter('gpus'     , []);
+ip.addParameter('gpus'     , 0); % set gpus = [] for cpu
 ip.addParameter('continue' , true);
 ip.addParameter('debug'    , false);
 ip.addParameter('split'    , 2);
