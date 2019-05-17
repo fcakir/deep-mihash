@@ -1,4 +1,22 @@
 function Aff = affinity_binary(Y1, Y2, X1, X2, opts)
+%
+% Please cite these papers if you use this code.
+%
+% 1. "Hashing with Binary Matrix Pursuit", 
+%    Fatih Cakir, Kun He, Stan Sclaroff
+%    European Conference on Computer Vision (ECCV) 2018
+%    arXiV:1808.01990 
+%
+% 2. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+% 	 IEEE TPAMI 2019 (to appear)
+%    arXiv:1803.00974
+%
+% 3. "MIHash: Online Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    International Conference on Computer Vision (ICCV) 2017
+%    (* equal contribution)
+%
 % binary affinity, returns logical matrix
 if opts.unsupervised
     assert(~isempty(X1) && ~isempty(X2));

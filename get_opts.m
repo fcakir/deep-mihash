@@ -3,13 +3,19 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 % The parameter values are initialized with the arguments passed in with the 
 % 'demo_AP.m' function. See EXAMPLE COMMANDS in demo_AP.m .  
 %
-% Please cite the below papers if you use this code.
+% Please cite these papers if you use this code.
 %
-% 1. "Hashing with Mutual Information", 
+% 1. "Hashing with Binary Matrix Pursuit", 
+%    Fatih Cakir, Kun He, Stan Sclaroff
+%    European Conference on Computer Vision (ECCV) 2018
+%    arXiV:1808.01990 
+%
+% 2. "Hashing with Mutual Information", 
 %    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
-%    arXiv:1803.00974 2018
+% 	 IEEE TPAMI 2019 (to appear)
+%    arXiv:1803.00974
 %
-% 2. "MIHash: Online Hashing with Mutual Information", 
+% 3. "MIHash: Online Hashing with Mutual Information", 
 %    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
 %    International Conference on Computer Vision (ICCV) 2017
 %    (* equal contribution)
@@ -60,6 +66,12 @@ function opts = get_opts(dataset, nbits, modelType, varargin)
 % 	randseed	- (int) Random generator seed. 
 % 	prefix 		- (string) Overrides the prefix in the experimental folder name, see 
 % 				  process_opts.m .  
+%  random_codes - (bool) Generate codes randomly. For future purposes. 
+% 				   Not implemented.
+%   weighted    - (bool) Weigh bits for weighted hamming distances
+% 	regress     - (bool) Do regression to adjust bit weights.
+%   max_iter    - (int) Maximum iteration number when doing binary inference.
+% 	tolerance   - (float) Tolerance value to stop binary inference. 
 %
 % OUTPUTS
 %   opts 		- (struct) input parser results. Each field corresponds to a valid input 

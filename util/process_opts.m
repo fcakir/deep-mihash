@@ -12,7 +12,7 @@ elseif strcmp(opts.dataset, 'nus')
     opts.testFunc = @test_supervised;
     opts.unsupervised = false;
     if strcmp(opts.modelType, 'vggf')
-        myLogInfo('Overriding modelType vggf with vggf_ft');
+        yLogInfo('Overriding modelType vggf with vggf_ft');
         opts.modelType = 'vggf_ft';
     end
 	assert(ismember(opts.modelType, {'vggf_ft', 'fc1'}));
@@ -24,7 +24,7 @@ elseif strcmp(opts.dataset, 'imagenet') % for future purposes
     opts.testFunc = @test_supervised;
     opts.unsupervised = false;
 	assert(opts.modelType == 'alexnet_ft');
-else, error('unknown dataset');
+else, error('ERROR: Unknown dataset');
 end
 
 % -----------------------------------------------------------------------------
@@ -100,21 +100,19 @@ end
 % 7. get binary inference id 
 if strcmpi(opts.obj, 'hbmp')
 	if opts.random_codes == 1
-		error('random codes not implemented yet');
-		opts.weighted = 0; 
-		opts.regress = 0;
-		inference_id = 'RANDOM_CODES';
-	elseif (opts.random_codes == 0) && (opts.weighted == 0)
-		myLogInfo('Setting max_iter to nbits for CONSTANT codes\n necessary for scaling');
-		opts.max_iter = opts.nbits;
-		opts.regress = 0;
-		inference_id = 'CONSTANT_CODES';
-	elseif (opts.random_codes == 0) && (opts.weighted == 1) && (opts.regress == 0)
-		inference_id = 'WEIGHTED_CODES';
-	elseif (opts.random_codes == 0) && (opts.weighted == 1) && (opts.regress == 1)
-		inference_id = 'WEIGHTED_REGRESSED_CODES';
+		error('ERROR: Random codes not implemented yet');
+		opts.weighted = 0; opts.regress = 0; inference_id = 'RANDcodes';
+	elseif opts.weighted == 0 
+		% Necessary to scale
+		myLogInfo('Warning: Setting max_iter to number of bits');
+		myLogInfo('         opts.max_iter = %d', opts.nbits);
+		opts.max_iter = opts.nbits; opts.regress = 0; inference_id = 'CONSTcodes';
+	elseif (opts.weighted == 1) && (opts.regress == 0)
+		inference_id = 'Wcodes';
+	elseif (opts.weighted == 1) && (opts.regress == 1)
+		inference_id = 'W_REGRcodes';
 	else
-		error('Unknown binary inference option!');
+		error('ERROR: Unknown binary inference option!');
 	end
 	idr = sprintf('%s-%s', idr, inference_id);
 end
@@ -126,7 +124,7 @@ opts.identifier = idr;
 % -----------------------------------------------------------------------------
 opts.localDir = './cachedir'; 
 if ~exist(opts.localDir, 'file')
-	error('Please make a symlink/folder for cachedir!');
+	error('ERROR: Please make a symlink/folder for cachedir!');
 end
 opts.dataDir = fullfile(opts.localDir, 'data');
 opts.imdbPath = fullfile(opts.dataDir, [opts.dataset '_imdb']);

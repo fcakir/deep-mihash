@@ -1,4 +1,22 @@
 function [imdb, opts] = hbmp_codes(imdb, opts)
+%
+% Please cite these papers if you use this code.
+%
+% 1. "Hashing with Binary Matrix Pursuit", 
+%    Fatih Cakir, Kun He, Stan Sclaroff
+%    European Conference on Computer Vision (ECCV) 2018
+%    arXiV:1808.01990 
+%
+% 2. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+% 	 IEEE TPAMI 2019 (to appear)
+%    arXiv:1803.00974
+%
+% 3. "MIHash: Online Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    International Conference on Computer Vision (ICCV) 2017
+%    (* equal contribution)
+%
 tic;
 metrics = opts.metrics;
 if ~iscell(metrics)
@@ -34,7 +52,7 @@ if ~isempty(imdb.images.labels)
 
 	% auxillary information
 	imdb.images.ulabels     = ulabels;
-else
+else % for unsupervised datasets, keeping here for furture purposes
     assert(opts.unsupervised & isfield(imdb.images, 'thr_dist'));
 	opts.thr_dist = imdb.images.thr_dist;
     itrain = find(imdb.images.set == 1);
@@ -69,7 +87,7 @@ S = single(S);
 [GCodes, bit_weights, residual] = binary_inference(S, opts.max_iter, opts.tolerance, ...
 			opts.weighted, opts.regress, opts.nbits);
 			
-% return only the top nbits
+% return only the relevant nbits
 GCodes = GCodes(:, 1:opts.nbits);
 
 % error checking			

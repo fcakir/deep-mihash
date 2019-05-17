@@ -1,5 +1,21 @@
 function [M, bit_weights, residual] = binary_inference(S, max_iter, tolerance, ...
 												 weighted, regress, nbits)
+% Please cite these papers if you use this code.
+%
+% 1. "Hashing with Binary Matrix Pursuit", 
+%    Fatih Cakir, Kun He, Stan Sclaroff
+%    European Conference on Computer Vision (ECCV) 2018
+%    arXiV:1808.01990 
+%
+% 2. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+% 	 IEEE TPAMI 2019 (to appear)
+%    arXiv:1803.00974
+%
+% 3. "MIHash: Online Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+%    International Conference on Computer Vision (ICCV) 2017
+%    (* equal contribution)
 % 
 % INPUTS:
 % 		S           : (2D matrix, float) Affinity matrix. Higher values means ...
@@ -69,7 +85,6 @@ end
 near_zero = 0;
 
 % lipchitz constant
-% source: http://math.stackexchange.com/questions/1630940/lipschitz-continuity-of-a-function-of-a-matrix
 L = norm(Mask.*S,'fro'); 
 
 X = zeros(size(S));
@@ -121,7 +136,7 @@ for t = 1:max_iter+1
 		if true
 			% do regression & get optimal weights
 			t_bit_weights = (pinv(c_X)*Y)';
-		else
+		else % alternative constrain the bit weights to positive values
 			myLogInfo('Constraining to positive coefficients');
 			options = optimoptions('lsqlin','Algorithm','interior-point', 'Display', 'off');
 			t_bit_weights = lsqlin(double(c_X), double(Y), -eye(size(c_X, 2)), zeros(1, size(c_X,2)), [], [], [], [], [],  options);

@@ -4,11 +4,17 @@ function paths = demo_AP(dataset, nbits, modelType, varargin)
 %
 % Please cite these papers if you use this code.
 %
-% 1. "Hashing with Mutual Information", 
-%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
-%    arXiv:1803.00974 2018
+% 1. "Hashing with Binary Matrix Pursuit", 
+%    Fatih Cakir, Kun He, Stan Sclaroff
+%    European Conference on Computer Vision (ECCV) 2018
+%    arXiV:1808.01990 
 %
-% 2. "MIHash: Online Hashing with Mutual Information", 
+% 2. "Hashing with Mutual Information", 
+%    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
+% 	 IEEE TPAMI 2019 (to appear)
+%    arXiv:1803.00974
+%
+% 3. "MIHash: Online Hashing with Mutual Information", 
 %    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
 %    International Conference on Computer Vision (ICCV) 2017
 %    (* equal contribution)
@@ -107,7 +113,7 @@ saveps = set_saveps(opts);
     'epochCallback', @epoch_callback) ;
 
 % -----------------------------------------------------------------------------
-% swap the hbmp codes with original labels
+% swap the hbmp codes with original labels, IMDB is a global var
 % -----------------------------------------------------------------------------
 if strcmpi(opts.obj, 'hbmp')
     imdb.images.greedy_labels = imdb.images.labels;
