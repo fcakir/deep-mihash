@@ -12,7 +12,7 @@ elseif strcmp(opts.dataset, 'nus')
     opts.testFunc = @test_supervised;
     opts.unsupervised = false;
     if strcmp(opts.modelType, 'vggf')
-        yLogInfo('Overriding modelType vggf with vggf_ft');
+       	myLogInfo('Overriding modelType vggf with vggf_ft');
         opts.modelType = 'vggf_ft';
     end
 	assert(ismember(opts.modelType, {'vggf_ft', 'fc1'}));
