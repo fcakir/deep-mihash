@@ -30,7 +30,7 @@ year = {2018}
     * **CIFAR-1, 12 bits, AP** *(Table 1)*: 
     	* `demo('cifar',12, 'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split',1, 'max_iter', 12, 'metrics', 'AP')`
     * **CIFAR-2, 32 bits, AP** *(Table 2)* : 
-  	* `demo('cifar', 32,'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split', 2, 'max_iter', 32, 'metrics', 'AP')`
+   	* `demo('cifar', 32,'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split', 2, 'max_iter', 32, 'metrics', 'AP')`
     * **NUSWIDE-1, 32 bits, AP@5K** *(Table 1)* : 
    	* `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
     * **NUSWIDE-1, 32 bits, AP@5K** *(constant, Table 5)* : 
