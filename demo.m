@@ -1,4 +1,4 @@
-function paths = demo_AP(dataset, nbits, modelType, varargin)
+function paths = demo(dataset, nbits, modelType, varargin)
 % This is the main function to run deep learning experiments for the mutual 
 % information based hashing method as described in the below papers. 
 %
