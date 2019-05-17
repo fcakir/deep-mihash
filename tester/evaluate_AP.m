@@ -106,16 +106,4 @@ function AP = get_AP(l)
     AP = sum(drl .* pl);            
 end
 
-function sim = compare_hash_tables(Htrain, Htest, bit_weights)
-	trainsize = size(Htrain, 2);
-	testsize  = size(Htest, 2);
-	if isempty(bit_weights)
-		sim = (2*single(Htrain)-1)'*(2*single(Htest)-1);
-	else
-	if isrow(bit_weights), bit_weights = bit_weights'; end;
-		Htrain = repmat(bit_weights, 1, trainsize) .* (2*single(Htrain)-1);
-		Htest = (2*single(Htest)-1);
-		sim = Htrain'*Htest;
-	end
-end
 
