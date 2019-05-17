@@ -104,7 +104,7 @@ ip.addParameter('normalize', true);
 ip.addParameter('solver'    , 'sgd');
 ip.addParameter('batchSize' , 256);
 ip.addParameter('lr'        , 0.1);
-ip.addParameter('lrstep'    , 10);
+ip.addParameter('lrstep'    , 20);
 ip.addParameter('lrdecay'   , 0.5);
 ip.addParameter('lrmult'    , 0.01);
 ip.addParameter('wdecay'    , 5e-4);
@@ -114,8 +114,8 @@ ip.addParameter('dropout'   , 0);
 % -----------------------------------------------------------------------------
 % train
 % -----------------------------------------------------------------------------
-ip.addParameter('epoch'    , 50);
-ip.addParameter('gpus'     , []);
+ip.addParameter('epoch'    , 100);
+ip.addParameter('gpus'     , 0); %set gpus = [] for cpu
 ip.addParameter('continue' , true);
 ip.addParameter('debug'    , false);
 ip.addParameter('split'    , 2);

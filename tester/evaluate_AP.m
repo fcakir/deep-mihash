@@ -2,13 +2,19 @@ function res = evaluate_AP(Htest, Htrain, Aff, opts, cutoff, bit_weights)
 % Given binary codes for a query (Htest) and retrieval set (Htrain),
 % computes the Mean Average Precision (at a certain cutoff, if provided).
 % 
-% Please cite the below papers if you use this code.
+% Please cite these papers if you use this code.
 %
-% 1. "Hashing with Mutual Information", 
+% 1. "Hashing with Binary Matrix Pursuit", 
+%    Fatih Cakir, Kun He, Stan Sclaroff
+%    European Conference on Computer Vision (ECCV) 2018
+%    arXiV:1808.01990 
+%
+% 2. "Hashing with Mutual Information", 
 %    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
-%    arXiv:1803.00974 2018
+% 	 IEEE TPAMI 2019 (to appear)
+%    arXiv:1803.00974
 %
-% 2. "MIHash: Online Hashing with Mutual Information", 
+% 3. "MIHash: Online Hashing with Mutual Information", 
 %    Fatih Cakir*, Kun He*, Sarah A. Bargal, Stan Sclaroff
 %    International Conference on Computer Vision (ICCV) 2017
 %    (* equal contribution)
