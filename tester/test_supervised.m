@@ -69,12 +69,12 @@ if strcmpi(opts.obj,'hbmp') & true
 		ind = find(imdb.images.ulabels(i) == imdb.images.orig_labels(train_id));
 		Htrainb(:, ind) = repmat(imdb.images.GCodes(i,:)', 1, length(ind));
 	end
-	myLogInfo('Ideal vs. Generated hash codes diff.=%g (Frobenius norm)\n', norm(Htrain-Htrainb,'fro'));  
+	myLogInfo('Ideal vs. Generated hash codes diff.=%g (Frobenius norm)', norm(Htrain-Htrainb,'fro'));  
 	AA = (Htrain~=Htrainb);
-	myLogInfo('Frac. of ineq. bits=%g\n', sum(AA(:))./numel(AA(:)));
+	myLogInfo('Frac. of ineq. bits=%g', sum(AA(:))./numel(AA(:)));
 	an = sum(AA, 1);
 	an = accumarray(an'+1, 1);
-	myLogInfo('Frac. of equal instances=%g\n', an(1)./length(train_id));
+	myLogInfo('Frac. of equal instances=%g', an(1)./length(train_id));
 end
 % -----------------------------------------------------------------------------
 % evaluate

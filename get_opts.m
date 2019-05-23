@@ -89,7 +89,7 @@ ip.addRequired('modelType' , @isstr);
 % -----------------------------------------------------------------------------
 % model params
 % -----------------------------------------------------------------------------
-ip.addParameter('sigmf', [1 0]);  % 2nd para: =0 use fixed
+ip.addParameter('sigmf', [40 0]);  % 2nd para: =0 use fixed
 ip.addParameter('nbins', nbits/2);  % use <nbits for less sparse histograms
 ip.addParameter('obj'  , 'mi');
 
