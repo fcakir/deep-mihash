@@ -38,7 +38,7 @@ year = {2018}
 	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_001-AP.txt). Gives you **0.83 AP@5K.**
     * **NUSWIDE-1, 32 bits, AP@5K** *(constant, Table 5)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
-	   [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_004-AP.txt).
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_004-AP.txt).
     * **NUSWIDE-2, 32 bits AP@50K** *(Table 2)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 1, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
 	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.01D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_001-AP.txt). Gives you **0.85** AP@50K. 
