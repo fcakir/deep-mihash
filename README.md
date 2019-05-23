@@ -27,23 +27,32 @@ year = {2018}
 * Only **CIFAR-10** and **NUSWIDE** datasets are supported currently. Support for **LabelMe** and **ImageNet100** will be added soon.
 * The main functions for experimenting is `demo.m`. The main arguments can be found in `get_opts.m`. 
 * Below are examples commands to replicate some of the results in the HBMP paper above. Please refer to *Section 4* of the paper and `get_opts.m` for experimental setting and parameter details. 
-    * **CIFAR-1, 12 bits, AP** *(Table 1)*: 
-      * `demo('cifar',12, 'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split',1, 'max_iter', 12, 'metrics', 'AP')`
+    * **CIFAR-1, 32 bits, AP** *(Table 1)*: 
+      * `demo('cifar',32, 'vggf', 'obj', 'hbmp', 'lr', 1e-4, 'weighted', 1, 'split',1, 'max_iter', 32, 'metrics', 'AP')`
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-cifar32-vggf-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.0001D0.5E20-W_REGRcodes_diary_001-AP.txt). 
     * **CIFAR-2, 32 bits, AP** *(Table 2)* : 
-      * `demo('cifar', 32,'vggf', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'split', 2, 'max_iter', 32, 'metrics', 'AP')`
+      * `demo('cifar', 32,'vggf', 'obj', 'hbmp', 'lr', 1e-4, 'weighted', 1, 'split', 2, 'max_iter', 32, 'metrics', 'AP')`
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-cifar32-vggf-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.0001D0.5E20-wdecay0.0005-W_REGRcodes_diary_001-AP.txt)
     * **NUSWIDE-1, 32 bits, AP@5K** *(Table 1)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_001-AP.txt). Gives you **0.83 AP@5K.**
     * **NUSWIDE-1, 32 bits, AP@5K** *(constant, Table 5)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
+	   [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_004-AP.txt)
     * **NUSWIDE-2, 32 bits AP@50K** *(Table 2)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 1, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.01D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_001-AP.txt) Gives you **0.85** AP@50K. 
     * **NUSWIDE-2, 32 bits AP@50K** *(constant, Table 2)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 0, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.01D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_001-AP.txt)
     * **NUSWIDE-1, 32 bits NDCG** *(Table 4)* : 
-      * `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')`
+      * `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')` 
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus48-vggf_ft-sp1_0517.162930-Bin24Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_002-NDCG.txt)
     * **NUSWIDE-1, 32 bits NDCG** (constant, Table 6)  : 
       * `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')`
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus48-vggf_ft-sp1_0517.162930-Bin24Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_001-NDCG.txt)
 
+Note the diaries might contain minor performance differences compared to the results in the paper. 
 
 ## License
 MIT License, see `LICENSE`
