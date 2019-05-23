@@ -32,25 +32,25 @@ year = {2018}
 	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-cifar32-vggf-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.0001D0.5E20-W_REGRcodes_diary_001-AP.txt). 
     * **CIFAR-2, 32 bits, AP** *(Table 2)* : 
       * `demo('cifar', 32,'vggf', 'obj', 'hbmp', 'lr', 1e-4, 'weighted', 1, 'split', 2, 'max_iter', 32, 'metrics', 'AP')`
-	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-cifar32-vggf-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.0001D0.5E20-wdecay0.0005-W_REGRcodes_diary_001-AP.txt)
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-cifar32-vggf-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.0001D0.5E20-wdecay0.0005-W_REGRcodes_diary_001-AP.txt).
     * **NUSWIDE-1, 32 bits, AP@5K** *(Table 1)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
 	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_001-AP.txt). Gives you **0.83 AP@5K.**
     * **NUSWIDE-1, 32 bits, AP@5K** *(constant, Table 5)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'AP@5000')`
-	   [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_004-AP.txt)
+	   [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_004-AP.txt).
     * **NUSWIDE-2, 32 bits AP@50K** *(Table 2)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 1, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
-	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.01D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_001-AP.txt) Gives you **0.85** AP@50K. 
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.01D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_001-AP.txt). Gives you **0.85** AP@50K. 
     * **NUSWIDE-2, 32 bits AP@50K** *(constant, Table 2)* : 
       * `demo('nus',32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-2, 'weighted', 0, 'max_iter', 32, 'split', 2, 'metrics', 'AP@50000')`
-	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.01D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_001-AP.txt)
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus32-vggf_ft-sp2_0517.162930-Bin16Sig40,0-batch256-sgdLR0.01D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_001-AP.txt).
     * **NUSWIDE-1, 32 bits NDCG** *(Table 4)* : 
       * `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 1, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')` 
-	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus48-vggf_ft-sp1_0517.162930-Bin24Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_002-NDCG.txt)
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus48-vggf_ft-sp1_0517.162930-Bin24Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-W_REGRcodes_diary_002-NDCG.txt).
     * **NUSWIDE-1, 32 bits NDCG** (constant, Table 6)  : 
       * `demo('nus', 32,'vggf_ft', 'obj', 'hbmp', 'lr', 1e-3, 'weighted', 0, 'max_iter', 32, 'split', 1, 'metrics', 'NDCG')`
-	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus48-vggf_ft-sp1_0517.162930-Bin24Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_001-NDCG.txt)
+	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-nus48-vggf_ft-sp1_0517.162930-Bin24Sig40,0-batch256-sgdLR0.001D0.5E20-wdecay0.0005-lrmult0.01-CONSTcodes_diary_001-NDCG.txt).
 
 Note the diaries might contain minor performance differences compared to the results in the paper. 
 
