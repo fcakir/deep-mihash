@@ -26,7 +26,7 @@ year = {2018}
 ## Example Commands
 * Only **CIFAR-10** and **NUSWIDE** datasets are supported currently. Support for **LabelMe** and **ImageNet100** will be added soon.
 * The main functions for experimenting is `demo.m`. The main arguments can be found in `get_opts.m`. 
-* Below are examples commands to replicate some of the results in the HBMP paper above. Please refer to *Section 4* of the paper and `get_opts.m` for experimental setting and parameter details. Matlab diary is saved holding console output. Note the diaries might contain minor performance differences compared to the results in the paper. 
+* Below are examples commands to replicate some of the results in the HBMP paper above. Please refer to *Section 4* of the paper and `get_opts.m` for experimental setting and parameter details. A Matlab diary is saved to the corresponding experimental folder. Note that the diaries might contain minor performance differences compared to the results in the paper. 
     * **CIFAR-1, 32 bits, AP** *(Table 1)*: 
       * `demo('cifar',32, 'vggf', 'obj', 'hbmp', 'lr', 1e-4, 'weighted', 1, 'split',1, 'max_iter', 32, 'metrics', 'AP')`
 	  * [Diary](http://cs-people.bu.edu/fcakir/misc/hbmp-diaries/HBMP-cifar32-vggf-sp1_0517.162930-Bin16Sig40,0-batch256-sgdLR0.0001D0.5E20-W_REGRcodes_diary_001-AP.txt). 
