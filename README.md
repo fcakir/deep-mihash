@@ -3,7 +3,7 @@ This branch contains the MATLAB implementation of the following paper. For devel
 
 **Hashing with Binary Matrix Pursuit**,  
 Fatih Cakir, Kun He, and Stan Sclaroff.
-**ECCV** 2018 ([conference page](http://openaccess.thecvf.com/content_ECCV_2018/html/Fatih_Cakir_Hashing_with_Binary_ECCV_2018_paper.html))
+**ECCV** 2018 ([conference page](http://openaccess.thecvf.com/content_ECCV_2018/html/Fatih_Cakir_Hashing_with_Binary_ECCV_2018_paper.html), [arXiv](https://arxiv.org/abs/1808.01990))
 
 If you use this code in your research, please cite:
 ```
