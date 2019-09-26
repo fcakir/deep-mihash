@@ -10,9 +10,8 @@ If you use this code in your research, please cite:
 @inproceedings{Cakir_deep_mihash,
   author    = {Fatih Cakir and Kun He and Sarah Adel Bargal and Stan Sclaroff},
   title     = {Hashing with Mutual Information},
-  journal   = {CoRR},
-  volume    = {abs/1803.00974},
-  year      = {2018},
+  booktitle = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year      = {2019},
 }
 ```
 
