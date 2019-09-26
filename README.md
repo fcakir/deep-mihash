@@ -3,7 +3,7 @@ This repository contains the MATLAB implementation of the following paper:
 
 **Hashing with Mutual Information**,  
 Fatih Cakir*, Kun He*, Sarah Adel Bargal, and Stan Sclaroff.
-**TPAMI** 2019 (to appear) ([arXiv](https://arxiv.org/abs/1803.00974))
+**TPAMI** 2019 ([PDF](https://ieeexplore.ieee.org/document/8705282), [arXiv](https://arxiv.org/abs/1803.00974))
 
 If you use this code in your research, please cite:
 ```
@@ -20,7 +20,7 @@ If you use this code in your research, please cite:
 
 **Hashing with Binary Matrix Pursuit**,  
 Fatih Cakir, Kun He, and Stan Sclaroff.
-**ECCV** 2018 ([conference page](http://openaccess.thecvf.com/content_ECCV_2018/html/Fatih_Cakir_Hashing_with_Binary_ECCV_2018_paper.html))
+**ECCV** 2018 ([conference page](http://openaccess.thecvf.com/content_ECCV_2018/html/Fatih_Cakir_Hashing_with_Binary_ECCV_2018_paper.html), [arXiv](https://arxiv.org/abs/1808.01990))
 
 If you use this code in your research, please cite:
 ```
